@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Hop Atlas — A Brewer's Grand Tour</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Raleway:wght@300;400;500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --p:#F2EDD7; --pmid:#E5DCBA; --pdark:#D6C99A;
+  --gd:#182A1A; --gm:#2C4830; --gl:#486C4C;
+  --go:#A5801C; --gol:#C8A24A; --gop:#E8D49A;
+  --tx:#271F12; --txm:#5A4530; --txmu:#89735A;
+  --brd:#CAB98E; --brdl:#DDD0AE; --cr:#FAF8F2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px}
+body{background:var(--p);color:var(--tx);font-family:'Source Serif 4',Georgia,serif;line-height:1.75;-webkit-font-smoothing:antialiased}
+h1,h2,h3,h4,h5{font-family:'EB Garamond',Georgia,serif;line-height:1.18;font-weight:500}
+a{color:var(--go);text-decoration:none}
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--gd);border-bottom:2px solid var(--go)}
+.nav-inner{max-width:1400px;margin:0 auto;padding:0 2rem;display:flex;align-items:center;justify-content:space-between;height:52px}
+.nav-brand{font-family:'EB Garamond',serif;font-size:1rem;font-weight:600;color:var(--gol);letter-spacing:.14em;text-transform:uppercase}
+.nav-links{list-style:none;display:flex;gap:.1rem;align-items:center}
+.nav-links a{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.6);padding:.3rem .6rem;transition:color .18s}
+.nav-links a:hover{color:var(--gol)}
+.nav-sep{color:var(--go);opacity:.35;font-size:.55rem}
+/* HERO */
+.hero{min-height:100vh;background:var(--gd);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:5rem 2rem 6rem;position:relative;overflow:hidden}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(165,128,28,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(165,128,28,.06) 1px,transparent 1px);background-size:64px 64px;pointer-events:none}
+.hero-vgn{position:absolute;inset:0;background:radial-gradient(ellipse at center,transparent 35%,rgba(18,32,20,.78) 100%);pointer-events:none}
+.hero-content{position:relative;z-index:2;max-width:820px}
+.hero-ey{font-family:'Raleway',sans-serif;font-size:.62rem;font-weight:600;letter-spacing:.28em;text-transform:uppercase;color:var(--go);margin-bottom:1.75rem;opacity:.8}
+.hero-title{font-family:'EB Garamond',serif;font-size:clamp(4rem,9vw,7.5rem);font-weight:500;color:var(--p);letter-spacing:.04em;line-height:.95;margin-bottom:1.1rem}
+.hero-sub{font-family:'EB Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);font-style:italic;color:var(--gop);margin-bottom:2.5rem;letter-spacing:.02em}
+.hero-rule{width:72px;height:1px;background:var(--go);margin:0 auto 2rem}
+.hero-quote{font-family:'EB Garamond',serif;font-size:1.15rem;font-style:italic;color:rgba(242,237,215,.6);max-width:520px;margin:0 auto 2.5rem;line-height:1.65}
+.hero-meta{display:flex;align-items:center;justify-content:center;gap:2rem;font-family:'Raleway',sans-serif;font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(165,128,28,.5)}
+.hero-scroll{position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:.5rem;font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:rgba(165,128,28,.38)}
+.hero-sline{width:1px;height:36px;background:linear-gradient(to bottom,var(--go),transparent)}
+.hero-hop{position:absolute;z-index:1;opacity:.06;color:var(--gol)}
+.hero-hop-l{left:4%;top:12%;width:110px;transform:rotate(-10deg)}
+.hero-hop-r{right:4%;bottom:18%;width:110px;transform:rotate(20deg)}
+/* LAYOUT */
+.wrap{max-width:1200px;margin:0 auto;padding:0 2rem}
+/* SECTIONS */
+.sec{padding:5rem 0}
+.sec-dk{background:var(--gd);color:var(--p)}
+.sec-mid{background:var(--pmid)}
+.sec-cr{background:var(--cr)}
+/* LABELS */
+.sec-label{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--go);margin-bottom:.65rem;display:flex;align-items:center;gap:.75rem;justify-content:center}
+.sec-label::before,.sec-label::after{content:'';flex:none;width:28px;height:1px;background:var(--go);opacity:.4}
+.sec-dk .sec-label{color:var(--gol)}
+.sec-dk .sec-label::before,.sec-dk .sec-label::after{background:var(--gol);opacity:.4}
+.sec-title{font-family:'EB Garamond',serif;font-size:clamp(2rem,4vw,2.9rem);font-weight:500;margin-bottom:.4rem;text-align:center}
+.sec-dk .sec-title{color:var(--p)}
+.sec-sub{font-style:italic;font-size:.95rem;color:var(--txm);text-align:center;margin-top:.25rem}
+.sec-dk .sec-sub{color:rgba(242,237,215,.45)}
+/* PHILOSOPHY */
+.phil-grid{display:grid;grid-template-columns:1fr 300px;gap:4rem;align-items:start;margin-top:3rem}
+.phil-essay p{margin-bottom:1.3rem;font-size:1.02rem;line-height:1.82}
+.phil-essay p:first-of-type::first-letter{font-family:'EB Garamond',serif;font-size:4.2rem;font-weight:600;float:left;line-height:.78;margin:.18rem .14rem 0 0;color:var(--go)}
+.pullquote{font-family:'EB Garamond',serif;font-size:1.5rem;font-style:italic;color:var(--gd);border-left:3px solid var(--go);padding-left:1.5rem;margin:2.5rem 0;line-height:1.4}
+.hierarchy{background:var(--gd);color:var(--p);padding:2rem;position:sticky;top:72px}
+.hierarchy h4{font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;color:var(--gol);margin-bottom:1.5rem}
+.hl{display:flex;gap:.85rem;margin-bottom:.9rem;align-items:flex-start}
+.hl-n{font-family:'EB Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--go);line-height:1;flex-shrink:0;width:1.8rem;text-align:right}
+.hl-t{font-size:.78rem;color:rgba(242,237,215,.7);line-height:1.5;padding-top:.1rem}
+.hier-note{margin-top:1.5rem;padding-top:1.2rem;border-top:1px solid rgba(165,128,28,.2);font-size:.78rem;color:rgba(242,237,215,.4);font-style:italic;line-height:1.6}
+/* ROADMAP */
+.roadmap{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:3rem}
+.rm-card{background:var(--cr);border-top:3px solid var(--go);padding:1.75rem 1.5rem}
+.rm-yr{font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:.2rem}
+.rm-num{font-family:'EB Garamond',serif;font-size:3.8rem;font-weight:400;color:var(--pdark);line-height:1;margin-bottom:.4rem}
+.rm-title{font-family:'EB Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--gd);margin-bottom:.6rem}
+.rm-dest{font-family:'Raleway',sans-serif;font-size:.65rem;font-weight:600;letter-spacing:.08em;color:var(--go);text-transform:uppercase;margin-bottom:.65rem}
+.rm-focus{font-size:.85rem;color:var(--txm);line-height:1.55}
+/* CALENDAR */
+.cal-table{width:100%;border-collapse:collapse;margin-top:2.5rem}
+.cal-table th{background:var(--gd);color:var(--gol);font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;padding:.85rem 1.25rem;text-align:left}
+.cal-table td{padding:.95rem 1.25rem;border-bottom:1px solid var(--brdl);font-size:.88rem;vertical-align:top}
+.cal-table tr:nth-child(even) td{background:rgba(242,237,215,.45)}
+.cal-region{font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gd)}
+.cal-sub{font-family:'Raleway',sans-serif;font-size:.6rem;color:var(--txmu);letter-spacing:.07em;display:block;margin-top:.15rem}
+.cal-peak{display:inline-block;background:var(--gd);color:var(--gol);font-family:'Raleway',sans-serif;font-size:.55rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.18rem .45rem;margin-top:.3rem}
+.cal-win{font-weight:600;color:var(--tx)}
+.cal-note{color:var(--txm);line-height:1.55}
+/* OVERVIEW CARDS */
+.ov-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.25rem;margin-top:2.5rem}
+.ov-card{border:1px solid var(--brd);background:var(--cr);padding:1.4rem}
+.ov-coords{font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.13em;color:var(--go);margin-bottom:.4rem;opacity:.8}
+.ov-name{font-family:'EB Garamond',serif;font-size:1.2rem;font-weight:600;color:var(--gd);margin-bottom:.2rem}
+.ov-country{font-family:'Raleway',sans-serif;font-size:.6rem;color:var(--txmu);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.65rem}
+.ov-text{font-size:.82rem;color:var(--txm);line-height:1.6}
+.ov-link{display:inline-block;margin-top:.85rem;font-family:'Raleway',sans-serif;font-size:.6rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--go);border-bottom:1px solid var(--go);padding-bottom:.08rem}
+/* REGION DOSSIER */
+.rg-sec{border-top:1px solid var(--brd)}
+.rg-tape{background:var(--gd);padding:1.5rem 2rem;position:relative;overflow:hidden}
+.rg-tape::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(165,128,28,.04) 1px,transparent 1px);background-size:100% 32px;pointer-events:none}
+.rg-tape-inner{max-width:1200px;margin:0 auto;display:flex;align-items:flex-end;justify-content:space-between;gap:1.5rem;flex-wrap:wrap;position:relative;z-index:1}
+.rg-id{display:flex;flex-direction:column;gap:.2rem}
+.rg-num-lbl{font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.25em;text-transform:uppercase;color:var(--go);opacity:.65}
+.rg-name{font-family:'EB Garamond',serif;font-size:clamp(2.2rem,5.5vw,3.8rem);font-weight:500;color:var(--p);letter-spacing:.03em;line-height:.95}
+.rg-ctry{font-family:'Raleway',sans-serif;font-size:.68rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,237,215,.42);margin-top:.3rem}
+.rg-stats{display:flex;gap:2.5rem;flex-wrap:wrap;align-items:flex-end}
+.rg-stat-val{font-family:'EB Garamond',serif;font-size:1.3rem;font-weight:500;color:var(--gol);display:block;line-height:1.1}
+.rg-stat-lbl{font-family:'Raleway',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(242,237,215,.32)}
+.rg-coords{font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.14em;color:rgba(165,128,28,.52);text-align:right;display:block;margin-top:.5rem}
+/* Region body */
+.rg-body{padding:3rem 0}
+.rg-grid{display:grid;grid-template-columns:1fr 280px;gap:3.5rem;align-items:start}
+.rg-h3{font-family:'EB Garamond',serif;font-size:1.4rem;font-weight:600;color:var(--gd);margin:2.5rem 0 .9rem;padding-bottom:.45rem;border-bottom:1px solid var(--brdl)}
+.rg-h3:first-child{margin-top:0}
+.rg-essay p{margin-bottom:1.05rem;font-size:.96rem;line-height:1.78}
+/* Hop cards */
+.hop-cards{display:flex;flex-direction:column;gap:1.1rem;margin-top:.75rem}
+.hop-card{background:var(--cr);border-left:3px solid var(--go);padding:1.1rem 1.2rem}
+.hop-card-name{font-family:'EB Garamond',serif;font-size:1.1rem;font-weight:600;color:var(--gd);margin-bottom:.15rem}
+.hop-card-profile{font-style:italic;font-size:.84rem;color:var(--txm);margin-bottom:.65rem}
+.hop-chem{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:.65rem}
+.hc-item{background:var(--pmid);padding:.3rem .45rem}
+.hc-lbl{font-family:'Raleway',sans-serif;font-size:.5rem;letter-spacing:.1em;text-transform:uppercase;color:var(--txmu);display:block}
+.hc-val{font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:700;color:var(--gd)}
+.hop-card-use{font-size:.8rem;color:var(--txm);line-height:1.5}
+/* Water box */
+.water-box{background:var(--gd);color:var(--p);padding:1.4rem;margin-top:1.5rem}
+.water-title{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gol);margin-bottom:.9rem}
+.water-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.4rem;margin-bottom:.9rem}
+.water-ion{font-family:'Raleway',sans-serif;font-size:.52rem;letter-spacing:.1em;text-transform:uppercase;color:rgba(242,237,215,.42);display:block}
+.water-val{font-family:'EB Garamond',serif;font-size:1.1rem;color:var(--gol);line-height:1.1}
+.water-unit{font-size:.6rem;opacity:.55}
+.water-note{font-size:.78rem;color:rgba(242,237,215,.58);line-height:1.55;border-top:1px solid rgba(165,128,28,.18);padding-top:.75rem;font-style:italic}
+/* Itinerary */
+.itin-day{margin-bottom:1.65rem;padding-left:1.4rem;border-left:2px solid var(--brd);position:relative}
+.itin-day::before{content:'';position:absolute;left:-5px;top:6px;width:8px;height:8px;background:var(--go);border-radius:50%}
+.itin-lbl{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:.2rem}
+.itin-title{font-family:'EB Garamond',serif;font-size:1.05rem;font-weight:600;color:var(--gd);margin-bottom:.4rem}
+.itin-text{font-size:.88rem;color:var(--txm);line-height:1.65}
+/* Must visit */
+.mv-grid{display:grid;grid-template-columns:1fr 1fr;gap:.85rem;margin-top:.75rem}
+.mv-item{background:var(--cr);padding:.95rem 1.1rem;border-top:2px solid var(--go)}
+.mv-type{font-family:'Raleway',sans-serif;font-size:.52rem;letter-spacing:.14em;text-transform:uppercase;color:var(--go);margin-bottom:.2rem}
+.mv-name{font-family:'EB Garamond',serif;font-size:.98rem;font-weight:600;color:var(--gd);margin-bottom:.3rem}
+.mv-desc{font-size:.79rem;color:var(--txm);line-height:1.5}
+/* Brew day */
+.brew-day{background:var(--pmid);border:1px solid var(--brd);border-left:4px solid var(--gm);padding:1.1rem 1.4rem;margin-top:.75rem}
+.brew-day-lbl{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gm);margin-bottom:.4rem}
+.brew-day-text{font-size:.88rem;color:var(--txm);line-height:1.6}
+/* Sidebar */
+.sb-box{border:1px solid var(--brd);background:var(--cr);padding:1.2rem;margin-bottom:1.4rem}
+.sb-title{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:.85rem;padding-bottom:.45rem;border-bottom:1px solid var(--brdl)}
+.sb-item{margin-bottom:.55rem;font-size:.84rem;color:var(--txm);line-height:1.5}
+.sb-item strong{color:var(--tx);display:block;font-family:'EB Garamond',serif;font-size:.9rem}
+.drinks-list{list-style:none}
+.drinks-list li{padding:.5rem 0;border-bottom:1px solid var(--brdl);font-size:.84rem;display:flex;align-items:baseline;gap:.65rem}
+.drinks-list li::before{content:'\25AA';color:var(--go);flex-shrink:0;font-size:.55rem}
+.drinks-list li:last-child{border-bottom:none}
+/* Recipe */
+.recipe{background:var(--gd);color:var(--p);padding:2rem 2.25rem;margin-top:2.5rem;position:relative;overflow:hidden}
+.recipe::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(165,128,28,.05) 1px,transparent 1px);background-size:22px 22px;pointer-events:none}
+.recipe-eyebrow{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--go);margin-bottom:.4rem}
+.recipe-title{font-family:'EB Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--p);margin-bottom:1.5rem}
+.recipe-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;position:relative;z-index:1}
+.r-col-title{font-family:'Raleway',sans-serif;font-size:.58rem;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gol);margin-bottom:.65rem;padding-bottom:.4rem;border-bottom:1px solid rgba(165,128,28,.22)}
+.r-item{display:flex;justify-content:space-between;gap:.75rem;font-size:.84rem;margin-bottom:.45rem;color:rgba(242,237,215,.85)}
+.r-qty{font-family:'Raleway',sans-serif;font-size:.78rem;font-weight:700;color:var(--gol);flex-shrink:0}
+.r-targets{grid-column:1/-1;display:flex;gap:2rem;flex-wrap:wrap;background:rgba(255,255,255,.04);padding:.9rem 1.1rem;margin-top:.25rem}
+.r-target-val{font-family:'EB Garamond',serif;font-size:1.45rem;color:var(--gol);display:block;line-height:1.1}
+.r-target-lbl{font-family:'Raleway',sans-serif;font-size:.5rem;letter-spacing:.14em;text-transform:uppercase;color:rgba(165,128,28,.52)}
+.r-water{grid-column:1/-1;font-size:.82rem;color:rgba(242,237,215,.58);line-height:1.6;border-top:1px solid rgba(165,128,28,.18);padding-top:.9rem;margin-top:.25rem}
+.r-water strong{color:var(--gol);font-family:'Raleway',sans-serif;font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:.3rem}
+.r-notes{grid-column:1/-1;font-size:.84rem;color:rgba(242,237,215,.6);line-height:1.65;font-style:italic;border-top:1px solid rgba(165,128,28,.18);padding-top:.9rem;margin-top:.25rem}
+/* Field notes */
+.fn-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.75rem;margin-top:2.5rem}
+.fn-card{background:var(--cr);padding:1.75rem;border-top:3px solid var(--go)}
+.fn-num{font-family:'EB Garamond',serif;font-size:2.2rem;color:var(--pdark);line-height:1;margin-bottom:.4rem}
+.fn-title{font-family:'EB Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--gd);margin-bottom:.65rem}
+.fn-text{font-size:.86rem;color:var(--txm);line-height:1.65}
+.fn-text p{margin-bottom:.65rem}
+.fn-text ul{padding-left:1.2rem;margin-top:.35rem}
+.fn-text li{margin-bottom:.35rem}
+/* Footer */
+.footer{background:var(--gd);padding:3.5rem 2rem 3rem;text-align:center;border-top:2px solid var(--go)}
+.footer-brand{font-family:'EB Garamond',serif;font-size:1.6rem;font-weight:500;color:var(--p);letter-spacing:.08em;margin-bottom:.4rem}
+.footer-sub{font-family:'Raleway',sans-serif;font-size:.6rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(165,128,28,.42)}
+.footer-rule{width:50px;height:1px;background:var(--go);margin:1.5rem auto;opacity:.32}
+.footer-note{font-size:.8rem;color:rgba(242,237,215,.28);font-style:italic}
+/* RESPONSIVE */
+@media(max-width:960px){
+  .phil-grid,.rg-grid{grid-template-columns:1fr}
+  .hierarchy{position:static}
+  .roadmap,.ov-grid{grid-template-columns:repeat(2,1fr)}
+  .recipe-grid{grid-template-columns:1fr}
+  .mv-grid,.fn-grid{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+@media(max-width:640px){
+  .roadmap,.ov-grid{grid-template-columns:1fr}
+  .water-grid{grid-template-columns:repeat(2,1fr)}
+  .hop-chem{grid-template-columns:repeat(2,1fr)}
+}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<svg aria-hidden="true" style="display:none" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="hop" viewBox="0 0 30 52">
+    <line x1="15" y1="50" x2="15" y2="17" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+    <ellipse cx="15" cy="17" rx="7" ry="3.5" fill="currentColor" opacity=".25" stroke="currentColor" stroke-width=".9"/>
+    <ellipse cx="15" cy="23" rx="9" ry="4" fill="currentColor" opacity=".2" stroke="currentColor" stroke-width=".9"/>
+    <ellipse cx="15" cy="29" rx="9" ry="4" fill="currentColor" opacity=".16" stroke="currentColor" stroke-width=".9"/>
+    <ellipse cx="15" cy="35" rx="7.5" ry="3.5" fill="currentColor" opacity=".12" stroke="currentColor" stroke-width=".9"/>
+    <ellipse cx="15" cy="40" rx="5" ry="2.5" fill="currentColor" opacity=".08" stroke="currentColor" stroke-width=".9"/>
+    <path d="M6.5 21 Q1.5 15 6.5 9" stroke="currentColor" stroke-width=".9" fill="none" stroke-linecap="round"/>
+    <path d="M23.5 21 Q28.5 15 23.5 9" stroke="currentColor" stroke-width=".9" fill="none" stroke-linecap="round"/>
+  </symbol>
+</svg>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-brand">The Hop Atlas</a>
+    <ul class="nav-links">
+      <li><a href="#philosophy">Philosophy</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#roadmap">Roadmap</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#calendar">Calendar</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#hallertau">Hallertau</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#saaz">Saaz</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#poperinge">Poperinge</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#kent">Kent</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#yakima">Yakima</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#tettnang">Tettnang</a></li><li class="nav-sep">&middot;</li>
+      <li><a href="#nelson">Nelson</a></li>
+    </ul>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-vgn"></div>
+  <svg class="hero-hop hero-hop-l" viewBox="0 0 30 52"><use href="#hop"/></svg>
+  <svg class="hero-hop hero-hop-r" viewBox="0 0 30 52"><use href="#hop"/></svg>
+  <div class="hero-content">
+    <div class="hero-ey">A Private Field Dossier for the Serious Brewer</div>
+    <h1 class="hero-title">The Hop<br>Atlas</h1>
+    <p class="hero-sub">A Brewer's Grand Tour Through the Great Hop Regions of the World</p>
+    <div class="hero-rule"></div>
+    <p class="hero-quote">"The best brewers are not merely recipe builders. They are agricultural interpreters."</p>
+    <div class="hero-meta"><span>Seven Regions</span><span>&middot;</span><span>Four Years</span><span>&middot;</span><span>One Permanent Reference</span></div>
+  </div>
+  <div class="hero-scroll"><span>Enter</span><div class="hero-sline"></div></div>
+</section>
+
+<section class="sec sec-cr" id="philosophy">
+<div class="wrap">
+<div class="sec-label">Section I</div>
+<h2 class="sec-title">The Philosophy of Hops</h2>
+<p class="sec-sub">On terroir, water, and why the serious brewer must leave the brewhouse</p>
+<div class="phil-grid">
+<div class="phil-essay">
+<p>To step into a Bavarian hop yard in the cool grey of an early September morning&#8212;bines still damp, air thick with the green, resinous scent of a crop almost ready&#8212;is to understand that beer is fundamentally an agricultural act. We have spent the last half century obscuring this fact. The modern brewing industry transformed the hop from a living agricultural product into a standardized chemical input: alpha acids compressed into pellets, vacuum-sealed, warehoused, and deployed by algorithm. The result is consistent, clean, predictable beer. It is also beer without memory.</p>
+<p>Great beer begins in the ground. The analogy to wine is almost obligatory here, but it is genuinely correct: just as the vines of Burgundy extract their personality from specific limestone subsoils and slope angles, the hop bines of the Hallertau and the &#381;atec basin are physical expressions of their geography. Hop terroir is a matrix of the mineral profile of alluvial soils, the particular chemistry of regional groundwater, the angle of late-summer sun, and decades of agricultural selection pressure. When a brewer chooses a hop variety, they are not merely selecting a chemical profile&#8212;they are selecting an ecosystem that took centuries to develop.</p>
+<div class="pullquote">"Water is the invisible architect. Soil is the memory. The hop cone is the message. The brewer is merely the translator."</div>
+<p>Consider the role of water&#8212;so often relegated to a footnote&#8212;in shaping the beer styles that arose in specific regions. The near-distilled water of Pilsen is not coincidental to the Bohemian Pilsner's clean, lustrous character; it is its cause. Water so soft it cannot buffer mash acidity allowed 19th-century Czech brewers to work extremely pale malts at correct pH without mineral adjustment. The resulting beer&#8212;crystal-clear, delicate, floral&#8212;was the direct expression of a geology. Bavarian Munich water, carbonate-rich and hard, suppresses hop bitterness while elongating malt sweetness. This is why Munich produced a malt-forward lager tradition and Bohemia produced a hop-forward one, even when both grew similar noble varieties on similar terrain.</p>
+<p>The true brewer must therefore think like a wine merchant or a green coffee sourcer: not "what hop is this?" but "where did it grow, why does it taste this way, and what brewing tradition was shaped by this land?" These are not romantic questions. They are technical ones whose answers live in the fields. No textbook equips you to smell a raw Saaz cone in the &#381;atec valley in late August&#8212;the specific peppery-spice note produced by the iron-rich red clay of that rain-shadow basin. You cannot read that smell. You have to stand in it.</p>
+<p>This Atlas is a systematic plan for acquiring those reference points, one region at a time, over four years. Not a holiday guide. A curriculum. Each region visited should produce not just memories but a brewed artifact&#8212;a beer built from the recipes in these pages, informed by what you tasted, touched, and understood in the field. The goal is not to be a tourist in hop country. It is to think and brew like someone who has always lived there.</p>
+</div>
+<div>
+<div class="hierarchy">
+<h4>The Brewer's Hierarchy of Understanding</h4>
+<div class="hl"><span class="hl-n">I</span><span class="hl-t">Can identify a hop variety by name and basic aroma category</span></div>
+<div class="hl"><span class="hl-n">II</span><span class="hl-t">Can describe its aroma profile with specific, precise vocabulary</span></div>
+<div class="hl"><span class="hl-n">III</span><span class="hl-t">Understands the variety's agronomic origins and soil chemistry</span></div>
+<div class="hl"><span class="hl-n">IV</span><span class="hl-t">Understands how regional water chemistry shaped the beer style</span></div>
+<div class="hl"><span class="hl-n">V</span><span class="hl-t">Has walked the fields during harvest; knows how the cone smells at the vine</span></div>
+<div class="hl"><span class="hl-n">VI</span><span class="hl-t">Has brewed with fresh hops at the source, in the tradition of that region</span></div>
+<p class="hier-note">This Atlas is designed to take a homebrewer from Level I to Level VI&#8212;systematically, region by region, over four deliberate years.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<section class="sec sec-dk" id="roadmap">
+<div class="wrap">
+<div class="sec-label">Section II</div>
+<h2 class="sec-title">The Grand Tour</h2>
+<p class="sec-sub">A four-year developmental curriculum, structured by brewing tradition and complexity</p>
+<div class="roadmap">
+<div class="rm-card"><div class="rm-yr">Year One</div><div class="rm-num">01</div><div class="rm-title">Foundations of Noble Hops</div><div class="rm-dest">Hallertau &middot; Saaz / &#381;atec</div><div class="rm-focus">The great landrace varieties. Low-cohumulone, high-humulene chemistry. Decoction mashing. The logic of continental lager brewing. These two regions define the vocabulary from which all European pale lager descends. Master the subtle before studying the intense.</div></div>
+<div class="rm-card"><div class="rm-yr">Year Two</div><div class="rm-num">02</div><div class="rm-title">Heritage &amp; Character</div><div class="rm-dest">Poperinge &middot; Kent</div><div class="rm-focus">Top-fermentation tradition. Rustic farmhouse hops. The earthy, marmalade-like character of British cask culture and the wild, estery world of Belgian farmhouse ales. Yeast becomes a co-equal protagonist alongside hops.</div></div>
+<div class="rm-card"><div class="rm-yr">Year Three</div><div class="rm-num">03</div><div class="rm-title">Modern Power</div><div class="rm-dest">Yakima Valley</div><div class="rm-focus">The New World revolution. Terpene-rich, thiol-forward, myrcene-heavy. Industrial-scale innovation and farm-to-kettle fresh-hop culture. The agricultural birthplace of Citra, Mosaic, and Simcoe. Essential context for understanding where beer is going.</div></div>
+<div class="rm-card"><div class="rm-yr">Year Four</div><div class="rm-num">04</div><div class="rm-title">Advanced Terroir</div><div class="rm-dest">Tettnang &middot; Nelson</div><div class="rm-focus">Microclimatic nuance at its extremes. The most structurally delicate noble hop (Tettnanger) against the most explosively aromatic Southern Hemisphere variety (Nelson Sauvin). Terroir as a technical argument, not a marketing claim.</div></div>
+</div>
+</div>
+</section>
+
+<section class="sec sec-mid" id="calendar">
+<div class="wrap">
+<div class="sec-label">Section III</div>
+<h2 class="sec-title">Global Harvest Calendar</h2>
+<p class="sec-sub">Timing is everything. These windows are when fields are live, kilns are running, and fresh-hop beer is in the glass.</p>
+<table class="cal-table">
+<thead><tr><th>Region</th><th>Optimal Visit Window</th><th>Harvest Peak</th><th>What You Will Encounter</th></tr></thead>
+<tbody>
+<tr><td><div class="cal-region">Hallertau</div><span class="cal-sub">Bavaria, Germany</span></td><td><span class="cal-win">Aug 20 &ndash; Sep 15</span><br><span class="cal-peak">Peak: Sep 1&ndash;10</span></td><td style="color:var(--txm);font-size:.88rem">Early September</td><td class="cal-note">24-hour kiln operation; the smell of drying hops over every village. Fresh <em>Gr&#252;nhopfenbier</em> appearing on gasthof taps. Harvest dinners. Hopfenring eG cooperative at maximum activity.</td></tr>
+<tr><td><div class="cal-region">Saaz / &#381;atec</div><span class="cal-sub">N. Bohemia, Czech Republic</span></td><td><span class="cal-win">Aug 22 &ndash; Sep 10</span><br><span class="cal-peak">Peak: Aug 25&ndash;Sep 5</span></td><td style="color:var(--txm);font-size:.88rem">Late August</td><td class="cal-note">Red clay roads clogged with harvest trucks. Unpasteurized tank lager at source in &#381;atec. The Hop Research Institute at capacity. The whole town smells of lupulin.</td></tr>
+<tr><td><div class="cal-region">Poperinge / Westhoek</div><span class="cal-sub">West Flanders, Belgium</span></td><td><span class="cal-win">Sep 1 &ndash; Sep 20</span><br><span class="cal-peak">Peak: Sep 5&ndash;15</span></td><td style="color:var(--txm);font-size:.88rem">Mid-September</td><td class="cal-note">Maritime fields at maximum green density. Brouwerij Van Eecke releasing seasonal <em>Hommelbier</em>. Triennial Hopfeesten festival (next edition: 2027). 't Hommelhof's harvest menu in full effect.</td></tr>
+<tr><td><div class="cal-region">Kent</div><span class="cal-sub">Southeast England, UK</span></td><td><span class="cal-win">Sep 5 &ndash; Sep 28</span><br><span class="cal-peak">Peak: Sep 10&ndash;22</span></td><td style="color:var(--txm);font-size:.88rem">Mid-September</td><td class="cal-note">Wood-fired oast houses lit across the Weald. Hukins Hops running picking weekends. Shepherd Neame green-hop brew day. Kent Green Hop Beer Fortnight runs late October if you miss the harvest.</td></tr>
+<tr><td><div class="cal-region">Yakima Valley</div><span class="cal-sub">Washington State, USA</span></td><td><span class="cal-win">Sep 1 &ndash; Oct 5</span><br><span class="cal-peak">Peak: Sep 5&ndash;25</span></td><td style="color:var(--txm);font-size:.88rem">Mid-September</td><td class="cal-note">Industrial pickers running 24 hours. YCH selection rooms open. Bale Breaker Field 41 taproom at maximum aroma. Yakima Fresh Hop Ale Festival on the first Saturday of October.</td></tr>
+<tr><td><div class="cal-region">Tettnang</div><span class="cal-sub">Baden-W&uuml;rttemberg, Germany</span></td><td><span class="cal-win">Aug 25 &ndash; Sep 8</span><br><span class="cal-peak">Peak: Aug 28&ndash;Sep 5</span></td><td style="color:var(--txm);font-size:.88rem">Late August</td><td class="cal-note">The smallest window; most boutique harvest in Europe. Hopfengut N&#176;20 harvest events. Lake Constance light at golden late-summer intensity. Small family estates at full activity.</td></tr>
+<tr><td><div class="cal-region">Nelson</div><span class="cal-sub">South Island, New Zealand</span></td><td><span class="cal-win">Feb 15 &ndash; Mar 15</span><br><span class="cal-peak">Peak: Mar 1&ndash;12</span></td><td style="color:var(--txm);font-size:.88rem">Early March</td><td class="cal-note">Northern Hemisphere winter = New Zealand summer harvest. Upper Moutere valley at full productive peak. NZ Hops Ltd cooperative processing. Thiol-rich Nelson Sauvin aroma at maximum expression.</td></tr>
+</tbody>
+</table>
+<p style="margin-top:1.5rem;font-size:.8rem;font-style:italic;color:var(--txmu);text-align:center">Harvest windows shift 5&ndash;10 days year to year. Contact the regional cooperative or host farm in June&ndash;July to confirm before booking travel.</p>
+</div>
+</section>
+
+<section class="sec sec-cr" id="overview">
+<div class="wrap">
+<div class="sec-label">Section IV</div>
+<h2 class="sec-title">The Hop-Growing World</h2>
+<p class="sec-sub">Hops grow only between the 35th and 55th parallels, in a narrow band of reliable long summer days and cool autumns. Within that band, seven places define the tradition.</p>
+<div class="ov-grid">
+<div class="ov-card"><div class="ov-coords">48&deg;28'N &middot; 11&deg;48'E</div><div class="ov-name">Hallertau</div><div class="ov-country">Bavaria, Germany</div><div class="ov-text">The largest contiguous hop-growing region in the world. ~20,000 ha of alluvial loess terraces producing the archetypal noble landrace&#8212;Hallertauer Mittelfr&#252;h&#8212;and the birthplace of noble bitterness in lager brewing.</div><a href="#hallertau" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">50&deg;19'N &middot; 13&deg;32'E</div><div class="ov-name">Saaz / &#381;atec</div><div class="ov-country">N. Bohemia, Czech Republic</div><div class="ov-text">Iron-rich red clay, rain-shadow valley, near-distilled soft water. The specific geology that created the Saaz hop and, through it, the Bohemian Pilsner style that half the world's beer imitates.</div><a href="#saaz" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">50&deg;51'N &middot; 2&deg;43'E</div><div class="ov-name">Poperinge</div><div class="ov-country">West Flanders, Belgium</div><div class="ov-text">Belgium's sole serious hop-growing enclave. Maritime, damp, historically essential to farmhouse and abbey ale. Small acreage, deep history, and 't Hommelhof&#8212;one of Europe's great beer restaurants.</div><a href="#poperinge" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">51&deg;18'N &middot; 0&deg;44'E</div><div class="ov-name">Kent</div><div class="ov-country">Southeast England, UK</div><div class="ov-text">The Garden of England. Deep loam over chalk and greensand. Home of East Kent Goldings&#8212;the most refined, honeyed hop in the world and the foundation of British cask ale culture.</div><a href="#kent" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">46&deg;36'N &middot; 120&deg;30'W</div><div class="ov-name">Yakima Valley</div><div class="ov-country">Washington State, USA</div><div class="ov-text">High desert, volcanic soil, Cascade rain-shadow. The epicenter of modern hop innovation. Birthplace of Citra, Mosaic, and Simcoe. ~40,000 ha of explosive, terpene-dense American varieties.</div><a href="#yakima" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">47&deg;41'N &middot; 9&deg;35'E</div><div class="ov-name">Tettnang</div><div class="ov-country">Baden-W&uuml;rttemberg, Germany</div><div class="ov-text">Just ~1,200 ha buffered by Lake Constance. Produces Tettnanger&#8212;considered by technical purists to be the most structurally complex noble hop in existence, with uniquely high farnesene content.</div><a href="#tettnang" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card"><div class="ov-coords">41&deg;16'S &middot; 173&deg;17'E</div><div class="ov-name">Nelson</div><div class="ov-country">South Island, New Zealand</div><div class="ov-text">Disease-free isolation, 2,400+ sunshine hours, pristine river-flat silts. Produces Nelson Sauvin&#8212;so loaded with polyfunctional thiols it shares aromatic compounds with Marlborough Sauvignon Blanc.</div><a href="#nelson" class="ov-link">Read Dossier &rarr;</a></div>
+<div class="ov-card" style="background:var(--gd);border-color:transparent;display:flex;flex-direction:column;justify-content:center;align-items:center;padding:2rem;text-align:center"><p style="font-family:'EB Garamond',serif;font-size:1.1rem;font-style:italic;color:rgba(242,237,215,.5);line-height:1.65">"Each of these regions is not just a place to grow hops&#8212;it is an argument about what beer should taste like."</p><svg style="display:block;margin:1.25rem auto 0;width:28px;height:50px;color:rgba(165,128,28,.3)" viewBox="0 0 30 52"><use href="#hop"/></svg></div>
+</div>
+</div>
+</section>
+
+<!-- ===== HALLERTAU ===== -->
+<section class="rg-sec" id="hallertau">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 01 of 07</span><h2 class="rg-name">Hallertau</h2><div class="rg-ctry">Bavaria, Germany</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~20,000</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">350&ndash;450m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Sep 1&ndash;10</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">48&deg;28'N &middot; 11&deg;48'E &middot; Wolnzach, Bavaria</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>The Hallertau is not merely the world's largest hop-growing region&#8212;it is, in a meaningful sense, the conceptual origin point of European pale lager brewing. This rolling agricultural landscape north of Munich, threaded between the Danube and the Isar, has produced hops since Carolingian-era monastery records first noted it in the 8th century. What the region selects for, through its specific combination of heavy loess-clay and alluvial soils and consistent continental summer rainfall, are hops with an unusually low ratio of cohumulone to total alpha acids.</p>
+<p>Cohumulone matters. It is the alpha-acid fraction responsible for harsh, lingering bitterness&#8212;the rough edge that makes high-IBU beer unpleasant. Hallertauer Mittelfr&#252;h, the region's flagship landrace, regularly measures cohumulone at 17&ndash;23% of total alpha&#8212;one of the lowest readings of any commercial variety. The resulting bitterness is what brewers call "noble": clean, transient, non-cloying, fading without residue. This chemistry, combined with Munich's carbonate-heavy water (which further softens perceived bitterness while elevating malt sweetness), is the technical explanation for why Bavaria produced the lager style that now dominates global beer production. Visiting the Hallertau is visiting the agricultural origin of an aesthetic argument that shaped the taste expectations of hundreds of millions of drinkers.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Hallertauer Mittelfr&#252;h</div><div class="hop-card-profile">Fresh meadow, dried herb, mild white pepper, soft floral notes, honeyed finish</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">3.0&ndash;5.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">17&ndash;23% &#9733;</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">35&ndash;55%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">25&ndash;40%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">&lt;1%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.7&ndash;1.3 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> Helles, M&auml;rzen, Munich Dunkel, traditional Pils. Single-hop this variety first to understand its full range&#8212;late additions unlock the floral character, early additions build the clean noble backbone. The &#9733; on cohumulone signals the key quality: the lowest harsh-bitterness fraction in any widely grown variety.</div></div>
+<div class="hop-card"><div class="hop-card-name">Hersbrucker</div><div class="hop-card-profile">Dry hay, mild tobacco, subtle ginger root, soft ripe fruit</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">1.5&ndash;4.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">15&ndash;22%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">18&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">10&ndash;25%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">2&ndash;5%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.5&ndash;1.2 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> Dunkel, Dunkles Weizen, Schwarzbier. Hersbrucker's earthier, more rustic profile provides depth to dark German styles where Mittelfr&#252;h would be overwhelmed by malt. Excellent as a supporting hop blended with Mittelfr&#252;h in a traditional M&auml;rzen.</div></div>
+<div class="hop-card"><div class="hop-card-name">Perle</div><div class="hop-card-profile">Clean mint, cedar, mild spice, floral background&#8212;a modern workhorse with noble lineage</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">6.0&ndash;9.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">27&ndash;32%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">22&ndash;27%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">40&ndash;55%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">&lt;1%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.8&ndash;1.4 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> Bittering charge in German ales, Export lagers, as an economical Mittelfr&#252;h supplement. Higher alpha makes it efficient at bittering; the cleaner oil profile keeps it appropriate in German-style beers where most high-alpha varieties would intrude.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Agricultural Core</div><div class="itin-text">Establish base in <strong>Wolnzach</strong>, the de facto capital of German hop growing. Begin at the <strong>Hopfenmuseum</strong>&#8212;a genuinely excellent regional repository with detailed soil maps and antique kiln schematics that orient you before any farm visit. Then walk directly to <strong>Hopfenring eG</strong> headquarters, the main growers' cooperative. Contact Hopfenring six to eight weeks in advance; they arrange farm tours for credentialed buyers and educators. In the afternoon, cycle the Gosseltshausen corridor, where trailers stacked with cut bines move between fields and kilns at a constant harvest rhythm. In the evening, seek out a village gasthaus in Geisenfeld or Mainburg&#8212;not for beer tourism but for the clientele: hop brokers and farmers who have been discussing yield and alpha content in the same booths for thirty years.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">Monastery and the Modern Laboratory</div><div class="itin-text">Drive southeast to the Danube gorge for <strong>Kloster Weltenburg</strong>&#8212;among the oldest documented brewery sites in the world (Benedictine records from 1050 AD), accessible only by ferry or footpath. Drink the Klosterbr&#228;u Weltenburger Dunkel on the stone terrace above the river. It is a legitimate sensory reference for how earthy, rustic German hops integrate with dark malt in a medieval brewing context. In the afternoon, drive to <strong>Freising</strong> and the <strong>Weihenstephan Brewery</strong>&#8212;world's oldest continuously operating commercial brewer (documented to 1040). Arrange the technical cellar visit in advance through TU M&#252;nchen; the goal is unpasteurized Helles drawn from a conditioning tank, which reveals Mittelfr&#252;h at its most transparent and complete.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">Research Frontier, Then Munich</div><div class="itin-text">The <strong>Hop Research Center H&#252;ll</strong> (Bayerische Landesanstalt f&#252;r Landwirtschaft) near Wolnzach is the institute that bred essentially every modern German hop variety, including Hallertau Blanc, Huell Melon, and the recent H&#252;ll Bitter. Access requires advance arrangement and a credible brewing education context&#8212;Doemens Academy is the best introduction. Close the day in Munich at <strong>Augustiner-Br&#228;u</strong> on Neuhauser Strasse, at the brewery's own taproom, with unfiltered Edelstoff on tap. Augustiner uses Hallertauer Mittelfr&#252;h almost exclusively. The Edelstoff, served unfiltered at the source brewery, is the definitive commercial expression of this landrace&#8212;your final reference point before you brew your own.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Cooperative / Farm Access</div><div class="mv-name">Hopfenring eG, Wolnzach</div><div class="mv-desc">The primary growers' cooperative. Your gateway to organized farm visits. Contact 6&ndash;8 weeks ahead with a clear brewing education context.</div></div>
+<div class="mv-item"><div class="mv-type">Research Institute</div><div class="mv-name">Hop Research Center H&#252;ll</div><div class="mv-desc">Government institute breeding all modern German varieties. Appointment-only. Best approached via Doemens Academy introduction. Their sensory archive of new varietals is extraordinary.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Historic</div><div class="mv-name">Weihenstephan, Freising</div><div class="mv-desc">World's oldest continuously operating brewery (1040 AD). Book the technical cellar visit via TU M&#252;nchen, not the public tour. Unpasteurized Helles from the conditioning tank is the goal.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Essential</div><div class="mv-name">Augustiner-Br&#228;u, Munich</div><div class="mv-desc">The gold standard for Mittelfr&#252;h in production. Unfiltered Edelstoff at the brewery taproom. Not a tourist destination&#8212;a technical reference point for noble hop expression in finished lager.</div></div>
+<div class="mv-item"><div class="mv-type">Museum</div><div class="mv-name">Hopfenmuseum, Wolnzach</div><div class="mv-desc">Excellent regional repository with antique kiln models, soil-type maps, and historical cultivation documents. Visit before the farm, not after.</div></div>
+<div class="mv-item"><div class="mv-type">Monastery / Gasthaus</div><div class="mv-name">Kloster Weltenburg, Danube</div><div class="mv-desc">Arrive by boat from Kelheim. Drink Dunkel under the baroque courtyard. One of the great theatrical beer experiences in Central Europe, with genuine brewing history.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Doemens Academy, Gr&#228;felfing</div><div class="brew-day-text">The Doemens Academy near Munich runs professional and advanced-homebrewer courses year-round, including sensory training focused on hop oil analysis and kettle addition strategies. Enroll in an autumn session to align with harvest. The Academy also facilitates introductions to H&#252;ll Research Center for serious students. This is the highest-value educational investment available in the Hallertau region for a homebrewer with serious intent.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Hallertau</div>
+<div class="recipe-title">Munich Helles &#8212; Malz und Mittelfr&#252;h</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>Weyermann Barke Pilsner Malt</span><span class="r-qty">5.0 kg</span></div>
+<div class="r-item"><span>Weyermann Munich Type I</span><span class="r-qty">300 g</span></div>
+<div class="r-item" style="font-size:.78rem;color:rgba(242,237,215,.38);font-style:italic;margin-top:.4rem"><span>Mash: 65&deg;C / 75 min. Sparge 78&deg;C.</span></div></div>
+<div><div class="r-col-title">Hop Schedule &#8212; Hallertauer Mittelfr&#252;h only</div>
+<div class="r-item"><span>First Wort Hop (pre-boil)</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>60 min addition</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>15 min addition</span><span class="r-qty">15 g</span></div>
+<div class="r-item"><span>Flameout steep, 10 min</span><span class="r-qty">20 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.048</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.010</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">5.0%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">18&ndash;20</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">2&ndash;3</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; Munich-Inspired</strong>Start RO. Target: Ca 75 ppm &middot; Mg 18 ppm &middot; SO&#8324; 5 ppm &middot; Cl 50 ppm &middot; HCO&#8323; 80 ppm. Keep sulfate very low&#8212;you want malt sweetness, not dryness. Add CaCl&#8322; primarily. The water builds the softness that lets the noble hop integrate rather than announce itself.</div>
+<div class="r-notes">Yeast: Wyeast 2124 or WLP838. Pitch at 8&deg;C, ferment at 9&deg;C for 14 days. Raise slowly to 13&deg;C over 3 days for diacetyl rest. Lager at 0&deg;C for minimum 6 weeks. This beer does not announce itself&#8212;it persuades. Resist the impulse to add more hops. The lesson from Hallertau is that restraint is a technique.</div>
+</div></div></div>
+</div>
+
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Late August through mid-September. Peak kiln activity in the first ten days of September.</div>
+<div class="sb-item"><strong>Second Choice</strong>Late May&ndash;June for the full-height bine canopy&#8212;fields at maximum growth, cooperative offices fully staffed.</div>
+<div class="sb-item"><strong>Weather</strong>September 14&ndash;19&deg;C, light rain possible. The damp mornings are when hop aroma is most concentrated.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Munich</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">75 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">18 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">152 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">5 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">2 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">16&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">The high bicarbonate suppresses hop bitterness while near-zero sulfate promotes malt fullness. Munich water is why the Helles is malt-forward: the chemistry demands it. Brewing a Helles with high-sulfate water produces a hop-aggressive, inferior result.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Augustiner Edelstoff, unfiltered at the Munich taproom&#8212;the canonical Mittelfr&#252;h showcase</li>
+<li>Weihenstephaner Helles, unpasteurized from conditioning&#8212;benchmark at source</li>
+<li>Gr&#252;nhopfenbier at any gasthaus in September&#8212;fresh-hop lager, seasonal only</li>
+<li>Weltenburger Dunkel at Kloster Weltenburg&#8212;noble hops in a dark malt context</li>
+<li>Paulaner Kellerbier, unfiltered at Nockherberg&#8212;raw conditioning tank reference</li>
+</ul></div>
+<div class="sb-box"><div class="sb-title">Where to Stay</div>
+<div class="sb-item"><strong>Base: Wolnzach or Mainburg</strong>Agricultural towns without boutique hotels. Use a local gasthaus. Proximity to fields matters more than comfort.</div>
+<div class="sb-item"><strong>Munich Night</strong>Stay one night in Munich for the Augustiner taproom visit. Rail to Wolnzach (1 hr) the following morning.</div></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== SAAZ / ZATEC ===== -->
+<section class="rg-sec sec-cr" id="saaz">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 02 of 07</span><h2 class="rg-name">Saaz / &#381;atec</h2><div class="rg-ctry">Northern Bohemia, Czech Republic</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~5,000</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">200&ndash;280m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Aug 25&ndash;Sep 5</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">50&deg;19'N &middot; 13&deg;32'E &middot; &#381;atec / Stekn&iacute;k, Bohemia</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>The town of &#381;atec&#8212;Saatz to German speakers, simply "the Saaz region" to hop buyers worldwide&#8212;sits in a valley sheltered from Atlantic weather by the Ore Mountains. This rain-shadow geography produces warm, dry summers with sharp autumnal cooling, near-ideal conditions for late-ripening landrace hops. The soil here is unlike anything in Bavaria: the &#381;atec basin rests on ancient permian sediments, and the topsoil produced by millennia of weathering is blood-red with iron oxide. Locally called <em>&#269;ervenka</em>, it is slightly acidic, well-draining, and mineral-rich in a specific way that shapes the native hop's chemistry profoundly.</p>
+<p>That chemistry is the key. The Saaz variety is remarkable for its farnesene content: this sesquiterpene accounts for 14&ndash;20% of Saaz's total oil&#8212;versus less than 1% in most other commercial varieties. Farnesene is the molecule primarily responsible for the Saaz character: peppery, herbal, almost woody spice that blends with light floral background to create what Bohemian brewers call the "&#381;atec bouquet." There is no synthetic replacement. The variety's alpha acid content is also remarkably low (2.5&ndash;4.5%)&#8212;economically undesirable in most contexts, but in this style, that restraint is the point: Saaz provides aroma structure without weight.</p>
+<p>The other variable is water. Pilsen's brewing water is among the softest on the planet&#8212;roughly 7 mg/L total dissolved solids, closer to distilled water than to any other major brewing city. This is not incidental to the Bohemian Pilsner style; it is its physical prerequisite. Soft water cannot buffer mash acidity, which allows pale malt to reach correct pH without mineral adjustment&#8212;something that brewers in hard-water cities genuinely struggle to achieve. Every serious attempt to replicate a Czech Pils outside Bohemia begins with reverse-osmosis water.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Saaz (&#381;ateck&yacute; &#269;erven&aacute;k)</div><div class="hop-card-profile">Black pepper, dried herbs, cedar wood, soft floral earth, mild woodruff&#8212;the definitive noble aroma</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">2.5&ndash;4.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">22&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">15&ndash;25%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">25&ndash;40%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">14&ndash;20% &#9733;</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.4&ndash;1.0 mL</span></div></div><div class="hop-card-use"><strong>Critical note on farnesene (&#9733;):</strong> Farnesene is highly volatile and degrades at boil temperatures. The characteristic Saaz bouquet comes primarily from late or no-heat additions. A 60-min Saaz addition builds the bittering structure; a 10-min or flameout addition delivers the spice. Use both. A brewer who uses Saaz only at 60 minutes has not yet understood Saaz.</div></div>
+<div class="hop-card"><div class="hop-card-name">Sl&aacute;dek</div><div class="hop-card-profile">Sweet green apple, mild orange peel, soft floral&#8212;bridges traditional and modern Czech brewing</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">5.0&ndash;8.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">22&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">18&ndash;24%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">30&ndash;40%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">8&ndash;12%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.8&ndash;1.4 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> Czech amber lager, <em>kvasnicov&eacute;</em> yeast lager. A good pairing with Premiant for a two-hop Czech brew with more expressive fruit character than Saaz alone. Retains enough farnesene to remain recognizably Czech while offering a higher alpha for bittering efficiency.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Red Earth of &#381;atec</div><div class="itin-text">Arrive in &#381;atec and spend the morning on foot in the old town&#8212;a UNESCO World Heritage candidate for its preservation of the medieval hop trade's built landscape, threaded with 19th-century hop warehouses (<em>chmel&aacute;rny</em>) and distinctive drying towers. The <strong>&#381;atec Hop and Beer Temple</strong>, housed in the restored brewery complex, provides the best contextual overview of the regional growing history. In the afternoon, hire a guide to drive the farm roads outside <strong>Stekn&iacute;k</strong>, 5 km from town. Get out, pick up a handful of topsoil. The iron content is visually apparent. In late August, rub a green Saaz cone between your palms. What you smell is the specific combination of this soil's mineral signature and the vine's biochemistry translated into farnesene. You cannot replicate this in a supermarket.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">The Scientific Record and the Evening Tank</div><div class="itin-text">The <strong>Chmel&#225;&#345;sk&yacute; institut</strong> (Hop Research Institute) in &#381;atec maintains the genetic archive of Czech landrace varieties and runs the certification program for the Protected Geographical Indication that has protected authentic Czech Saaz since 2013. Contact them well in advance; they accommodate professional and serious educational visitors. Their clonal selection documentation is the most precise technical reference available in the region. In the evening, find a table at <strong>Na Pork&aacute;nu</strong>&#8212;a brewpub attached to the old town fortifications, brewing with local hops on the premises. Order the <em>nefiltrov&aacute;n&eacute;</em>. This is the closest available experience to drinking beer at the literal source of its agricultural ingredients.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">Plze&#328;: The Final Argument</div><div class="itin-text">Train south to <strong>Plze&#328;</strong> (70 min). Book the <strong>Historic Cellars Tour</strong> at Pilsner Urquell in advance&#8212;specifically the premium version that descends into the sandstone lagering tunnels. You will be given unfiltered, unpasteurized Pilsner Urquell from a conditioning tank. The difference between this and the bottled export product is significant and instructive: the Saaz character is more vivid, the malt rounder, the carbonation softer. Eat at <strong>Na Spilce</strong> restaurant inside the complex. Return to Prague and spend your evening at <strong>Restaurace Lok&aacute;l on Dlouh&aacute;</strong>&#8212;the gold standard for Czech <em>v&yacute;&#269;ep</em> service. Order a <em>hladinka</em> (standard pour) and a <em>&#353;nyt</em> (mostly foam) to understand how foam texture affects bitterness perception. These are not aesthetic choices&#8212;they are serving conventions that alter the sensory experience in measurable ways.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Research / Farm Access</div><div class="mv-name">Chmel&#225;&#345;sk&yacute; Institut, &#381;atec</div><div class="mv-desc">The hop research institute and genetic archive. Contact 6&ndash;8 weeks ahead. Their farnesene content documentation across clonal selections is the most useful technical reference in the region.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Destination</div><div class="mv-name">Pilsner Urquell Cellars, Plze&#328;</div><div class="mv-desc">Historic Cellars Tour only&#8212;not the standard route. Unfiltered sample from the conditioning tank. The single most important technical reference for understanding Saaz in its intended environment.</div></div>
+<div class="mv-item"><div class="mv-type">Brewpub / Source</div><div class="mv-name">Na Pork&aacute;nu, &#381;atec</div><div class="mv-desc">Brewpub in the old fortifications, brewing with local hops. The freshest available Czech lager in the source region. Always order unfiltered (<em>nefiltrov&aacute;n&eacute;</em>).</div></div>
+<div class="mv-item"><div class="mv-type">Restaurant / Beer Service</div><div class="mv-name">Restaurace Lok&aacute;l, Prague (Dlouh&aacute;)</div><div class="mv-desc">Gold standard for traditional Czech tank beer service. Essential for understanding how pour technique and serving temperature affect Saaz hop expression. A service masterclass, not just a pub.</div></div>
+<div class="mv-item"><div class="mv-type">Pub / Historic</div><div class="mv-name">U Fleku, Prague</div><div class="mv-desc">Continuously brewing since 1499. Dark amber house lager on-site. More atmosphere than technical education, but the institutional continuity is genuine.</div></div>
+<div class="mv-item"><div class="mv-type">Microbrewery / Modern Czech</div><div class="mv-name">Pivovar Zichovec, Prague</div><div class="mv-desc">The most technically accomplished modern Czech craft brewery. Their <em>Sv&#283;tl&yacute; Spe&eacute;ci&aacute;l</em> is a precise argument for what the Saaz hop can do in contemporary hands.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Fresh-Hop Brewing Day</div><div class="brew-day-text">Contact <strong>Pivovar Zichovec</strong> or a similarly progressive Czech micro-brewery 6&ndash;8 weeks before your late-August visit. A handful of Czech craft breweries conduct annual fresh-hop brewing events during the Saaz harvest window, where green cones arrive by refrigerated van from &#381;atec farms and go into the kettle within hours. The resulting beer&#8212;ferociously fresh, bright green in aroma&#8212;is an irreproducible sensory reference. Describe your homebrewing background precisely and ask to participate, not just observe.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Saaz / &#381;atec</div>
+<div class="recipe-title">Sv&#283;tl&yacute; Le&#382;&aacute;k &#8212; Bohemian Pilsner</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>Weyermann Bohemian Floor-Malted Pilsner</span><span class="r-qty">5.3 kg</span></div>
+<div class="r-item" style="font-size:.78rem;color:rgba(242,237,215,.38);font-style:italic;margin-top:.4rem"><span>Step mash: 50&deg;C 20min &rarr; 65&deg;C 45min &rarr; 72&deg;C 15min &rarr; 78&deg;C mashout. Traditional double decoction adds further malt depth.</span></div></div>
+<div><div class="r-col-title">Hop Schedule &#8212; Czech Saaz only</div>
+<div class="r-item"><span>First Wort Hop (pre-boil)</span><span class="r-qty">30 g</span></div>
+<div class="r-item"><span>60 min addition</span><span class="r-qty">30 g</span></div>
+<div class="r-item"><span>30 min addition</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>10 min addition</span><span class="r-qty">30 g</span></div>
+<div class="r-item"><span>Flameout / whirlpool steep</span><span class="r-qty">25 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.052</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.013</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">5.1%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">38&ndash;42</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">3&ndash;4</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; Pilsen (Non-Negotiable)</strong>Start from RO water only. Target: Ca 10 mg/L &middot; Mg 3 mg/L &middot; SO&#8324; 5 mg/L &middot; Cl 5 mg/L. Add 1&ndash;2 mL of 88% lactic acid to reach mash pH 5.1&ndash;5.2. Any departure toward harder water produces harsh, discordant bitterness. The softness is not a detail&#8212;it is the style.</div>
+<div class="r-notes">Yeast: Wyeast 2278 (Czech Pilsner) or WLP800. Pitch a healthy starter at 8&deg;C, ferment at 9&ndash;10&deg;C for 14 days. Raise slowly to 13&deg;C over 3 days for diacetyl rest. Lager at 2&ndash;4&deg;C for 6&ndash;8 weeks. Cold-side oxygen pickup is the enemy of clarity&#8212;minimize transfers. This beer should be brilliant gold, intensely spicy-hoppy on the nose, and finish bone-dry with a clean peppery snap. If it finishes sweet, attenuation is incomplete.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Late August. Harvest typically begins August 22&ndash;26 depending on the year. First week of September is peak kiln activity.</div>
+<div class="sb-item"><strong>Prague Pairing</strong>Build in 2 days in Prague before or after &#381;atec. Czech craft beer culture there is sophisticated and growing rapidly.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Pilsen</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">7 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">3 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">15 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">6 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">5 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~0.5&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">The softest brewing water in the world. This is not a detail&#8212;it is the complete explanation for why the Bohemian Pilsner exists as a distinct style. No hard-water city could have produced it. The geology forced a process that expresses the Saaz hop with maximum precision and minimum harshness.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Pilsner Urquell unfiltered from Historic Cellars tank&#8212;the irreproducible original</li>
+<li>Na Pork&aacute;nu <em>kvasnicov&eacute;</em>, &#381;atec&#8212;maximum terroir proximity</li>
+<li>Zichovec Sv&#283;tl&yacute; Spe&eacute;ci&aacute;l, Prague&#8212;modern Czech at its most precise</li>
+<li>Lok&aacute;l Dlouh&aacute; Pilsner Urquell, properly poured&#8212;a serving education</li>
+</ul></div>
+<div class="sb-box"><div class="sb-title">Order Like a Local</div>
+<div class="sb-item"><em>To&#269;en&eacute; pivo</em>&#8212;draft beer</div>
+<div class="sb-item"><em>Nefiltrov&aacute;n&eacute;</em>&#8212;unfiltered</div>
+<div class="sb-item"><em>Kvasnicov&eacute;</em>&#8212;yeast beer, hazy and alive</div>
+<div class="sb-item"><em>Hladinka</em>&#8212;standard pour, smooth fine foam</div>
+<div class="sb-item"><em>Le&#382;&aacute;k</em>&#8212;12&deg; Plato lager (the "real" category)</div>
+</div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== POPERINGE ===== -->
+<section class="rg-sec" id="poperinge">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 03 of 07</span><h2 class="rg-name">Poperinge</h2><div class="rg-ctry">West Flanders, Belgium</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~150</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">10&ndash;30m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Sep 5&ndash;15</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">50&deg;51'N &middot; 2&deg;43'E &middot; Poperinge / Watou, West Flanders</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>Belgium has no large hop-growing tradition. What it has is Poperinge, a market town in the Westhoek&#8212;the flat western tongue of West Flanders pressing toward the French border&#8212;and a cultivation history stretching to the 14th century. The active acreage is modest: roughly 150 hectares. But the cultural significance is disproportionate. Poperinge hops are not grown to provide clean bittering units. They are grown to provide character: rustic, earthy, herbal additions to ales that are already complex from yeast.</p>
+<p>The maritime climate is the key variable. Constant North Sea airflow, high soil moisture, and cool damp late summers produce hops that are coarser and earthier than their Central European equivalents. The indigenous varieties&#8212;particularly the old landrace <em>Groene Bel</em> and the more widely planted Brewer's Gold&#8212;have a quality that works brilliantly as structural counterweight to the ester-rich, phenolic, aggressively carbonated beers produced by Belgian top-fermenting yeasts. Where a Bavarian brewer needs a hop that disappears into lager clarity, a Flemish brewer needs one that stands up to yeast character. Poperinge hops do exactly that.</p>
+<p>The region also produced <em>hommelbier</em>&#8212;<em>hommel</em> being the West Flemish dialect word for hop&#8212;a specific style of amber-to-golden ale brewed to showcase local harvest character. This is the target when visiting: not the internationally exported abbey beers, but the locally brewed <em>hommelbier</em> from producers who source directly from adjacent farms. There is also one restaurant in all of Belgium that has most completely understood the culinary dimension of local hop culture. The itinerary is organized around it.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Brewer's Gold</div><div class="hop-card-profile">Blackcurrant, dark fruit, resinous pungency, woody background&#8212;forceful bittering character</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">5.0&ndash;9.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">40&ndash;48%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">10&ndash;16%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">50&ndash;60%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">&lt;1%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.9&ndash;2.0 mL</span></div></div><div class="hop-card-use"><strong>Note the high cohumulone (40&ndash;48%).</strong> In a lager context this would produce harsh bitterness. In a Belgian strong dark ale&#8212;with its massive malt sweetness and phenolic yeast character&#8212;it produces exactly the assertive cutting edge the beer needs. Pair with Styrian Goldings at flame-out for complexity.</div></div>
+<div class="hop-card"><div class="hop-card-name">Groene Bel</div><div class="hop-card-profile">Green grass, herbal tea, light earth, mild floral&#8212;the authentic historical Belgian landrace</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">3.0&ndash;5.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">20&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">25&ndash;35%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.5&ndash;1.0 mL</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">2&ndash;5%</span></div><div class="hc-item"><span class="hc-lbl">Availability</span><span class="hc-val">Rare</span></div></div><div class="hop-card-use"><strong>Extremely rare.</strong> If you encounter this variety on a farm visit, treat it as an opportunity. The delicate herbal and grass character is what old Belgian farmhouse ales smelled of before standardization. Sourcing this for a homebrew is a small achievement in itself.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Westhoek Flat Country</div><div class="itin-text">Stay at <strong>Ter Driezen Hotel</strong> in Poperinge&#8212;a beautifully converted boutique property in a former hop warehouse, architecturally the right base for this region. Spend the morning at the <strong>Stadsmuseum Poperinge</strong> hop museum in the historic weigh-house&#8212;essential for understanding the commercial and legal infrastructure of the medieval hop trade. In the afternoon, rent a bicycle and cycle the farm roads southwest toward the hamlet of <strong>Watou</strong>. In early September the bines are dense walls of green stretching twelve feet above the path. Stop at any farmstead with stripped bines&#8212;the scent of processed hops clinging to the strings is unmistakable. Seek out <strong>Hopbedrijf Talboom</strong>, a working farm that occasionally hosts harvest picking for visitors during the harvest fortnight (contact in August to arrange). In the evening, drink at <strong>Caf&eacute; Den Anker</strong> on Poperinge's Grote Markt&#8212;the traditional gathering point for hop farmers and brokers, entirely local in character.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">Two Pilgrimages: Abbey and Schoolhouse</div><div class="itin-text">Drive fifteen minutes south to <strong>Westvleteren</strong>. The <strong>In De Vrede</strong> caf&eacute;, situated directly at the gate of the Sint Sixtus Abbey, is where you drink Westvleteren beers on-site in the only legitimate setting outside the abbey walls. Order a Westvleteren Blond alongside the 12. The 12's extraordinary depth&#8212;raisin, fig, dark chocolate, subtle earthy hop&#8212;is what Poperinge-region hops look like in their most fully developed expression. Then drive five minutes to the village of Vleteren itself. <strong>De Struise Brouwers</strong>&#8212;a small experimental brewery operating from a converted schoolhouse&#8212;is here. They are not a taproom; they produce exceptional barrel-aged ales that trade at extraordinary prices internationally and are respected at the highest levels of the industry. Contact in advance and approach with genuine curiosity. If you have been before, you already know why this visit belongs on the itinerary.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">The Two Essential Watou Stops</div><div class="itin-text">The village of Watou, 7 km from Poperinge, contains two mandatory institutions. <strong>Brouwerij Van Eecke</strong> (makers of Poperings Hommelbier and Watou Tripel) is the archetype of the regional hop-forward Belgian ale tradition: family-owned, local-hop sourced. Arrange a visit in advance to observe the hop-back in use and taste the seasonal fresh-hop version. Then, for the evening, book dinner at <strong>'t Hommelhof</strong>&#8212;the restaurant of chef Stefaan Couttenye, who since the 1980s has pioneered beer-cuisine pairing using fresh local hops in cooking. Dishes are prepared with hop shoots, hop-infused stocks, and hop-aged cheeses. This is serious cooking with serious beer: the full menu paired with Belgian ales is one of the genuine gastronomic experiences of European brewing culture. <strong>Book 2&ndash;3 weeks in advance minimum.</strong> Do not skip it.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Restaurant / Unmissable</div><div class="mv-name">'t Hommelhof, Watou</div><div class="mv-desc">Chef Couttenye's hop-infused cuisine since 1985. The most seriously considered beer-food pairing restaurant in Belgium. Book weeks ahead. Non-negotiable.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Appointment Only</div><div class="mv-name">De Struise Brouwers, Vleteren</div><div class="mv-desc">Converted schoolhouse, appointment-only. World-class barrel-aged experimental ales. One of the breweries the industry quietly reveres. Approach with genuine curiosity, not tourist energy.</div></div>
+<div class="mv-item"><div class="mv-type">Caf&eacute; / Abbey</div><div class="mv-name">In De Vrede, Westvleteren</div><div class="mv-desc">The only legitimate on-site venue for Westvleteren beers. Drink the 8 and 12 together. The 12 is the reference point for Belgian dark strong ale at its most complete.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Regional Tradition</div><div class="mv-name">Brouwerij Van Eecke, Watou</div><div class="mv-desc">Makers of Poperings Hommelbier. Family-run, local-hop sourced. Brewery visit by arrangement. Essential for experiencing Belgian hop character in its native context.</div></div>
+<div class="mv-item"><div class="mv-type">Farm / Picking Possible</div><div class="mv-name">Hopbedrijf Talboom</div><div class="mv-desc">Working farm that occasionally hosts harvest picking for visitors. Contact in August. Most direct access to the agricultural reality of Belgian hop production.</div></div>
+<div class="mv-item"><div class="mv-type">Hotel</div><div class="mv-name">Ter Driezen, Poperinge</div><div class="mv-desc">Boutique hotel in a converted hop warehouse. Architecturally appropriate and well-located. The right base for the Westhoek.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Hopfeesten 2027</div><div class="brew-day-text">Poperinge's <strong>Hopfeesten</strong> is a triennial festival of hop culture&#8212;the next edition is anticipated for <strong>2027</strong>. It includes hop-harvest reenactments, traditional brewing demonstrations, open farm days, and folk events across the Westhoek. If timing aligns, this is the most concentrated educational hop experience available in Western Europe. Book accommodation 12&ndash;18 months in advance&#8212;the region fills completely.</div></div>
+<div class="brew-day"><div class="brew-day-lbl">Sint-Bernardus Cellar Access</div><div class="brew-day-text"><strong>Brouwerij Sint-Bernardus</strong> in Watou&#8212;one of the world's finest abbey-style breweries&#8212;occasionally arranges small-group educational cellar sessions covering their hop-back usage and long conditioning practice. Contact their export team in English; they are accustomed to serious international visitors and occasionally accommodate homebrewers with credible background.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Poperinge</div>
+<div class="recipe-title">West Flanders Farmhouse Saison</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>Belgian Pilsner Malt</span><span class="r-qty">4.6 kg</span></div>
+<div class="r-item"><span>White Wheat Malt</span><span class="r-qty">600 g</span></div>
+<div class="r-item"><span>Vienna Malt</span><span class="r-qty">300 g</span></div>
+<div class="r-item"><span>Clear Candi Sugar (at 10 min)</span><span class="r-qty">200 g</span></div></div>
+<div><div class="r-col-title">Hop Schedule</div>
+<div class="r-item"><span>Brewer's Gold &#8212; 60 min</span><span class="r-qty">25 g</span></div>
+<div class="r-item"><span>Styrian Goldings &#8212; 15 min</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>East Kent Goldings &#8212; flameout</span><span class="r-qty">25 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.058</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.005</span><span class="r-target-lbl">FG (target)</span></div><div><span class="r-target-val">7.0%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">30&ndash;34</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">3&ndash;5</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-notes">Yeast: Wyeast 3711 (French Saison)&#8212;the most aggressively attenuating strain available. A true Saison is bone dry. If your FG is above 1.010, the beer is unfinished. Ferment at 19&deg;C, allow free-rise to 26&deg;C or even 28&deg;C as activity slows. High fermentation temperature drives the spicy phenolic character that makes Belgian farmhouse yeast worth using. Carbonate to 3.0&ndash;3.5 volumes. Bottle condition if possible.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>First two weeks of September. Harvest peaks September 5&ndash;15 depending on summer conditions.</div>
+<div class="sb-item"><strong>Hopfeesten Window</strong>Triennial festival (next: 2027) transforms the entire Westhoek. Extraordinary if timing aligns&#8212;book accommodation very early.</div>
+<div class="sb-item"><strong>Spring Option</strong>Late March to April for <em>hopjets</em> (hop shoots)&#8212;a regional delicacy featured prominently at 't Hommelhof's spring menu.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Westhoek</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">55 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">10 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">95 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">40 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">30 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~8&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">Moderate maritime water&#8212;neither the alpine softness of Tettnang nor Munich's carbonate weight. Belgian brewers worked historically with this water for top-fermenting ales; moderate sulfate supports hop bite while chloride promotes the fullness that supports yeast-driven body.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Poperings Hommelbier (Van Eecke)&#8212;the region's signature style at source</li>
+<li>Westvleteren 12 at In De Vrede&#8212;the reference for Belgian dark strong</li>
+<li>Sint-Bernardus Abt 12&#8212;world-class and widely available in the region</li>
+<li>Seasonal fresh-hop Hommelbier from Van Eecke in September</li>
+<li>De Struise Tsjeeses or Black Albert if a visit is arranged</li>
+</ul></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== KENT ===== -->
+<section class="rg-sec sec-cr" id="kent">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 04 of 07</span><h2 class="rg-name">Kent</h2><div class="rg-ctry">Southeast England, United Kingdom</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~1,000</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">0&ndash;200m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Sep 10&ndash;22</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">51&deg;18'N &middot; 0&deg;44'E &middot; Faversham / Staplehurst, Kent</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>Kent's hop acreage has declined from a Victorian peak of 30,000 hectares to roughly 1,000 today, yet the county retains its identity as England's hop country in a way that is cultural as much as agricultural. The combination of deep, fertile loam over chalk and greensand geology, a gentle maritime climate from the English Channel, and the particular quality of light in the North Downs created conditions in which the <em>Goldings</em> family of hops&#8212;first selected from a Canterbury garden in 1790&#8212;developed a character that has not been successfully replicated anywhere else in the world.</p>
+<p>East Kent Goldings are the opposite of intensity. Low-alpha (typically 4&ndash;6%), with total oil content around 0.4&ndash;0.8 mL per 100g&#8212;modest numbers that suggest a gentle, restrained hop. But the specific combination of linalool (floral), geraniol (rose-like), and myrcene (soft citrus) at low concentrations, against a background of slightly higher humulene (herbal, dried herbs), produces an aroma that is genuinely irreplaceable: honeyed orange marmalade, light lavender, soft earth, mild thyme, beeswax. This is the hop that defines British pale ales, bitters, and barleywines&#8212;not because it is available or cheap, but because it is precisely what the style requires and nothing else is.</p>
+<p>The chalk and greensand geology of East Kent creates well-draining, mineral-rich soil that concentrates these oil compounds in the cone. The water, from chalk aquifers, carries moderate sulfate and calcium&#8212;a profile that enhances hop dryness in the glass without creating harshness. These two factors together explain why East Kent Goldings grown elsewhere produce a recognizably inferior hop: the terroir is functioning as chemistry, not marketing.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">East Kent Goldings (EKG)</div><div class="hop-card-profile">Honeyed marmalade, lavender, soft earth, mild thyme, beeswax&#8212;supremely composed and irreplaceable</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">4.0&ndash;6.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">25&ndash;35%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">28&ndash;36%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">22&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">Linalool</span><span class="hc-val">0.5&ndash;0.8%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.4&ndash;0.8 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> English Bitter, Best Bitter, IPA, Barleywine, Porter. This variety works across all additions: at 60 min it builds clean bittering structure; at 15 min the spice note appears; at flameout or as dry-hop the marmalade and lavender are vivid. Modern brewers sometimes use EKG as a dry-hop in low-ABV bitters where an American brewer would reach for Citra&#8212;a different argument entirely, and a correct one.</div></div>
+<div class="hop-card"><div class="hop-card-name">Fuggles</div><div class="hop-card-profile">Damp forest floor, dark mint, mild tobacco, soft fruit&#8212;earthy and characterful</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">3.5&ndash;5.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">25&ndash;32%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">32&ndash;40%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">20&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">3&ndash;5%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.6&ndash;1.2 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> English Porter, Stout, Traditional Bitter. Fuggles' earthier, more rustic profile provides exactly the counterweight that EKG cannot: damp, forest-floor character that complements dark malt and roast in a way that EKG's honeyed notes would fight. Blend the two in a Porter (EKG aroma, Fuggles body) for a traditionally structured British dark ale.</div></div>
+<div class="hop-card"><div class="hop-card-name">First Gold</div><div class="hop-card-profile">Sweet orange peel, mild spice, floral honey&#8212;a modern downy-mildew-resistant EKG descendant bred at Wye College</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">6.5&ndash;9.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">30&ndash;37%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">25&ndash;32%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">35&ndash;45%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.7&ndash;1.2 mL</span></div><div class="hc-item"><span class="hc-lbl">Origin</span><span class="hc-val">Wye College, 1994</span></div></div><div class="hop-card-use"><strong>Use in:</strong> Modern English ales, session IPA, golden ales. Higher alpha makes it economically attractive for Kent farmers; the flavor profile retains recognizable Goldings DNA. A good introduction to EKG-family character for brewers unfamiliar with the type.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Oast House Landscape of Faversham</div><div class="itin-text">Establish base in <strong>Faversham</strong>&#8212;the historic heart of Kent's hop and brewing industry. The conical brick chimneys of antique oast houses (hop-drying kilns unique to Kent and East Sussex) stitch the skyline. Begin at <strong>Shepherd Neame</strong>, Britain's oldest continuously operating commercial brewer (documented to 1698), where original solid oak mash tuns and copper kettles remain in use. Book the brewery tour in advance; the fermentation cellar and hop-back viewing are the educational core. In the afternoon, drive 20 minutes south to the farms around <strong>Teynham</strong> and <strong>Sittingbourne</strong>&#8212;the heartland of East Kent Goldings cultivation on the deep chalk loam. Stop roadside when you see stripped poles and bines heaped on trailers. In the evening, find a proper cask-ale pub and order whatever is on gravity: this is the destination of the hop you're studying.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">The Living Hop Archive</div><div class="itin-text">Travel to <strong>Wye</strong>, where the <strong>National Hop Collection</strong>&#8212;maintained by NIAB (National Institute of Agricultural Botany)&#8212;holds hundreds of historic and endangered heritage varieties in a living gene bank. Contact NIAB well in advance to arrange access on one of their open days or for educational groups; this is not a public walk-in facility. Walking the rows in September, rubbing wild and extinct varieties between your palms, is the most complete hop sensory education available in the British Isles. In the afternoon, visit <strong>Hukins Hops</strong> near Staplehurst&#8212;an active working farm that runs picking weekends for visitors in mid-September (book ahead). Drive into the <strong>Weald of Kent</strong> for the evening, to a preserved country pub such as <strong>The Three Chimneys</strong> near Biddenden (15th century, excellent traditional ales, genuine atmosphere).</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">Goacher's, Harvey's, and the Cask Education</div><div class="itin-text"><strong>Goacher's Brewery</strong> in Maidstone is as traditional as British brewing gets: family-run, no filtration, no finings, 100% East Kent Goldings in every beer. They are not a taproom or visitor center&#8212;contact them directly for a visit. This is the brewery where the industrial production apparatus drops away entirely and you see EKG doing exactly what it has always done, in the simplest possible context. In the afternoon, cross into East Sussex to <strong>Harvey's Brewery</strong> in Lewes&#8212;technically outside Kent but essential for any serious student of British cask ale. Harvey's is a complete surviving example of Victorian commercial brewing practice: tower brewery, open fermenters, wood-primed conditioning. Drink their Sussex Best Bitter from a handpull in the adjacent pub. This is EKG and Fuggles in their canonical expression.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Farm / Gene Bank</div><div class="mv-name">National Hop Collection, Wye</div><div class="mv-desc">Hundreds of historic and endangered varieties in a living archive maintained by NIAB. The most complete hop sensory education available in Britain. Arrange access well in advance&#8212;not a walk-in facility.</div></div>
+<div class="mv-item"><div class="mv-type">Farm / Picking</div><div class="mv-name">Hukins Hops, Staplehurst</div><div class="mv-desc">Active working hop farm running visitor picking weekends in mid-September. Book ahead. Direct contact with the EKG harvest and the most hands-on farm experience in Kent.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Traditional</div><div class="mv-name">Shepherd Neame, Faversham</div><div class="mv-desc">Britain's oldest commercial brewer (1698). Original mash tuns, hop-back in use, proper tour. The institutional foundation for understanding EKG in English commercial brewing.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Essential</div><div class="mv-name">Goacher's Brewery, Maidstone</div><div class="mv-desc">100% EKG in every beer. No filtration, no finings, minimal equipment. Family-run. Contact directly for visits. The purest available expression of EKG in a working Kent brewery.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Pilgrimage</div><div class="mv-name">Harvey's, Lewes (East Sussex)</div><div class="mv-desc">Victorian tower brewery with open fermenters and wood priming. Technically outside Kent but essential for any serious student of British cask tradition. Drink the Sussex Best Bitter from a handpull.</div></div>
+<div class="mv-item"><div class="mv-type">Pub / Country</div><div class="mv-name">The Three Chimneys, Biddenden</div><div class="mv-desc">15th century pub in the Weald of Kent, surrounded by hop country. Genuine atmosphere, real ale, no concessions to tourism. The place to end Day Two.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Green Hop Season</div><div class="brew-day-text">If you miss the main harvest window, the <strong>Kent Green Hop Beer Fortnight</strong> runs through the last two weeks of October. Over forty Kent breweries release fresh-hop ales brewed with green (un-kilned) hops from local farms. Several of these breweries welcome observer visits during their green-hop brew days&#8212;contact individual breweries in September. Shepherd Neame typically releases a green-hop seasonal and occasionally involves serious visitors in the brew day.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Kent</div>
+<div class="recipe-title">English Best Bitter &#8212; The EKG Argument</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>Maris Otter Floor-Malted Pale Malt</span><span class="r-qty">4.5 kg</span></div>
+<div class="r-item"><span>Crystal 60L</span><span class="r-qty">350 g</span></div>
+<div class="r-item"><span>Pale Chocolate Malt</span><span class="r-qty">100 g</span></div></div>
+<div><div class="r-col-title">Hop Schedule &#8212; EKG throughout</div>
+<div class="r-item"><span>East Kent Goldings &#8212; 60 min</span><span class="r-qty">25 g</span></div>
+<div class="r-item"><span>East Kent Goldings &#8212; 15 min</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>East Kent Goldings &#8212; flameout steep</span><span class="r-qty">30 g</span></div>
+<div class="r-item"><span>Fuggles &#8212; dry hop, 48 hrs</span><span class="r-qty">20 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.044</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.010</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">4.5%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">28&ndash;32</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">8&ndash;10</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; London/Kent</strong>Ca 90 ppm &middot; Mg 5 ppm &middot; SO&#8324; 60 ppm &middot; Cl 25 ppm. Moderate sulfate enhances hop dryness and crispness without harsh edge. This is what chalk-aquifer Kent water looks like. Use RO + CaSO&#8324; and CaCl&#8322; additions.</div>
+<div class="r-notes">Yeast: Wyeast 1968 (London ESB) or WLP002&#8212;both highly flocculent with low attenuation, building the rounded, slightly full body that prevents English bitter from feeling thin. Mash at 67&deg;C for body. Ferment at 18&deg;C. Do not over-carbonate: 1.5&ndash;1.8 volumes CO&#8322; for keg; 1.2 volumes for cask conditioning. Serve at cellar temperature (12&deg;C). Cold beer kills EKG. The Fuggles dry-hop adds an earthy ground note that lifts the marmalade character of the EKG additions.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Mid-September. EKG harvest peaks September 10&ndash;22. Oast houses lit and operating throughout.</div>
+<div class="sb-item"><strong>Second Choice</strong>Kent Green Hop Beer Fortnight (last two weeks of October)&#8212;fresh-hop ales across 40+ breweries, some with open brew-day access.</div>
+<div class="sb-item"><strong>Avoid</strong>July and August&#8212;bines still growing, no harvest activity, farm access minimal.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Kent/London</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">90 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">5 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">115 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">60 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">25 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~12&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">Hard chalk water with moderate sulfate. The sulfate-calcium ratio explains why English ales have the particular dry, clean hop finish they do&#8212;the geology is accentuating the EKG's dryness while the bicarbonate rounds the body. Brewing an English bitter with soft water produces a different beer entirely.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Shepherd Neame Spitfire, cask-conditioned at the brewery&#8212;EKG at source</li>
+<li>Goacher's Gold Star, gravity-dispensed&#8212;the purest EKG expression available</li>
+<li>Harvey's Sussex Best Bitter, handpull in Lewes&#8212;the canonical British cask benchmark</li>
+<li>Any fresh green-hop ale from a Kent brewery in October</li>
+<li>Larkins Traditional Ale (Chiddingstone)&#8212;smallest commercial brewery in Kent, all EKG</li>
+</ul></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== YAKIMA VALLEY ===== -->
+<section class="rg-sec" id="yakima">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 05 of 07</span><h2 class="rg-name">Yakima Valley</h2><div class="rg-ctry">Washington State, USA</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~40,000</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">300&ndash;400m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Sep 5&ndash;25</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">46&deg;36'N &middot; 120&deg;30'W &middot; Moxee / Toppenish, Washington</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>The Yakima Valley is the antipode of noble restraint. A high-desert basin shielded from Pacific moisture by the Cascade Range, receiving an average of 300 days of sunshine annually, and irrigated by glacial runoff from the Columbia River system&#8212;this is not an environment that produces gentle, subtle hops. The intense, unfiltered desert sunlight and mineral-rich volcanic soils shock the plants into producing massive yields of essential oils, particularly myrcene, caryophyllene, and high concentrations of thiol precursors that fermentation-active yeasts convert into explosive tropical fruit aromas.</p>
+<p>This is the region that changed what beer could smell like. Citra, released in 2008 by Yakima Chief Ranches, introduced brewers to pink grapefruit, lime, mango, and passion fruit at intensities that the European noble hop tradition had never conceived of as goals. Mosaic, released in 2012, added blueberry, tropical complexity, and an earthy resinous depth that made single-hop beers possible in a way they had not been before. Simcoe, developed by S.S. Steiner in 2000, brought the specific piney-catty-passionfruit combination that defined the Pacific Northwest IPA. These are not incremental variations on the Hallertauer Mittelfr&#252;h&#8212;they are a different agricultural argument entirely.</p>
+<p>Understanding Yakima is understanding why the last twenty-five years of craft beer looked the way they did. The region also illustrates a principle that the European hop regions embody more quietly: that specific geography produces specific chemistry, and specific chemistry enables specific beer culture. The Yakima Valley did not set out to produce the American IPA. It produced hops that made the American IPA inevitable.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Citra</div><div class="hop-card-profile">Pink grapefruit, lime zest, mango, passion fruit, lychee&#8212;the paradigm-shifting variety</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">11.0&ndash;13.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">22&ndash;24%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">60&ndash;65% &#9733;</span></div><div class="hc-item"><span class="hc-lbl">Geraniol</span><span class="hc-val">~1%</span></div><div class="hc-item"><span class="hc-lbl">Linalool</span><span class="hc-val">~0.6%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">2.0&ndash;2.7 mL &#9733;</span></div></div><div class="hop-card-use"><strong>Note the myrcene (&#9733;):</strong> At 60&ndash;65%, Citra has among the highest myrcene fractions of any commercial variety. Myrcene is volatile and degrades at boil temperatures; it expresses best in whirlpool additions (below 80&deg;C) and in dry-hop. A 60-min Citra addition is largely wasted&#8212;use Columbus or CTZ for bittering and save Citra entirely for late additions and dry-hop.</div></div>
+<div class="hop-card"><div class="hop-card-name">Mosaic</div><div class="hop-card-profile">Blueberry, tropical fruit, pine, light earth&#8212;extraordinary complexity from a single variety</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">11.5&ndash;13.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">24&ndash;26%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">47&ndash;55%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">~1.5%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">12&ndash;15%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">1.5&ndash;2.2 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> NEIPA, DIPA, Modern IPA, Pale Ale. Mosaic is the most versatile of the modern Yakima varieties&#8212;it works as a single hop across an entire beer (bittering through dry-hop) without becoming one-dimensional. The earthy background layer prevents the tropical notes from becoming cloying. A genuine agricultural achievement.</div></div>
+<div class="hop-card"><div class="hop-card-name">Simcoe</div><div class="hop-card-profile">Pine resin, passion fruit, dank earth, catty edge&#8212;the defining West Coast variety</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">12.0&ndash;14.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">15&ndash;20%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">60&ndash;65%</span></div><div class="hc-item"><span class="hc-lbl">Caryophyllene</span><span class="hc-val">7&ndash;10%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">&lt;1%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">2.0&ndash;2.5 mL</span></div></div><div class="hop-card-use"><strong>Use in:</strong> West Coast IPA, Double IPA. Despite high myrcene, Simcoe performs unusually well in extended boil additions&#8212;the pine and resin character survives where Citra's citrus does not. Pair Simcoe (60 min + whirlpool) with Citra (dry-hop only) for a classic West Coast IPA structure: piney-bitter with explosive citrus aroma.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">Industrial Scale and the Selection Room</div><div class="itin-text">Arrive in Yakima during peak September. The scale is immediately disorienting: where the Hallertau is a landscape of 20,000 hectares visible from the road, Yakima's picking operations run 24 hours and process more hops in a single day than many European regions produce in a season. Secure access to <strong>Yakima Chief Hops (YCH)</strong> processing facilities by contacting them directly with professional or homebrewing credentials. The selection room&#8212;where buyers examine freshly dried whole-cone lots by shattering frozen cones between their palms and analyzing the golden lupulin dust&#8212;is one of the great sensory experiences in hop culture. The alpha-to-total-oil ratio worksheets for individual estate lots are posted on the wall. In the evening, drive to <strong>Bale Breaker Brewing Company</strong>, uniquely situated in the middle of Field 41 of Loftus Ranches. Drink their Field 41 IPA at a table surrounded by the bines that produced it. This is the closest the Yakima Valley gets to the European farm-brewery integration.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">The Family Farms</div><div class="itin-text">Drive the valley highway toward <strong>Moxee</strong> and <strong>Toppenish</strong> to visit pioneering multi-generational family farms. <strong>Loftus Ranches</strong>&#8212;owned by the family behind Bale Breaker&#8212;is one of the most respected operations in the valley; their estate lot selections are traded by some of the world's best craft breweries. <strong>Perrault Hops / Perrault Ranch</strong> is another long-established family operation with excellent reputation among hop buyers. <strong>CLS Farms</strong> (the Atwood family) has been at the forefront of experimental variety development. At any of these farms, the scale of industrial picking equipment&#8212;multi-tier machines that strip an acre of bines in minutes&#8212;is remarkable against the delicate chemistry of the cone being processed. In the afternoon, eat lunch at <strong>Cowiche Creek Kitchen &amp; Bar</strong> in Yakima, which serves excellent farm-to-table food with strong hop-season beer programming.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">Fresh Hop Day</div><div class="itin-text">The <strong>Yakima Fresh Hop Ale Festival</strong> takes place on the first Saturday of October&#8212;time your visit to coincide if possible. Over 60 breweries release fresh-hop ales brewed within the previous week; tasting them side-by-side is an education in how un-kilned, undried hops change a beer's aromatic profile compared to their pelletized equivalents (greener, more volatile, more vegetal but explosively fresh). If visiting during September proper, the alternative is to drive west over Stevens Pass to <strong>Seattle</strong> for the evening&#8212;specifically <strong>Fremont Brewing</strong> or <strong>Cloudburst Brewing</strong>, both of which receive truck deliveries of fresh un-kilned Yakima hops during the harvest window and brew fresh-hop ales in real time. Arriving at the brewery when the hop delivery truck pulls in is one of the most aromatic experiences available in American beer.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Processor / Selection Room</div><div class="mv-name">Yakima Chief Hops (YCH)</div><div class="mv-desc">The valley's most significant hop processor. Selection room access with professional credentials. Estate lot documentation and sensory evaluation the core experience. Contact via their commercial inquiry channel.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Essential</div><div class="mv-name">Bale Breaker Brewing Co.</div><div class="mv-desc">Taproom in the middle of Field 41 on Loftus Ranches. Harvest Table dinners in September. Field 41 IPA is the most direct farm-to-glass expression of Yakima terroir available. Not a tourist experience&#8212;an agricultural one.</div></div>
+<div class="mv-item"><div class="mv-type">Farm / Respected</div><div class="mv-name">Loftus Ranches, Moxee</div><div class="mv-desc">One of the most respected family farms in the valley. Estate lot Citra, Mosaic, and Simcoe are benchmarks for quality buyers. Access through the Bale Breaker connection or direct inquiry.</div></div>
+<div class="mv-item"><div class="mv-type">Farm / Experimental</div><div class="mv-name">CLS Farms (Atwood Ranch)</div><div class="mv-desc">Pioneering experimental variety development. Their work on new breeding selections is what the valley's next decade will look like. A visit here is a view into the future of Yakima hop culture.</div></div>
+<div class="mv-item"><div class="mv-type">Restaurant / Gastropub</div><div class="mv-name">Cowiche Creek Kitchen, Yakima</div><div class="mv-desc">The best food in Yakima proper, with strong hop-season beer programming. The place to spend a harvest-week evening without driving to Seattle.</div></div>
+<div class="mv-item"><div class="mv-type">Festival</div><div class="mv-name">Yakima Fresh Hop Ale Festival</div><div class="mv-desc">First Saturday of October. 60+ breweries releasing fresh-hop ales. A side-by-side education in un-kilned hop aromatics impossible to replicate outside this two-week window.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Fresh Hop Brew Day in Seattle</div><div class="brew-day-text">Contact <strong>Fremont Brewing</strong> or <strong>Cloudburst Brewing</strong> in Seattle six weeks before your September visit. Both receive fresh un-kilned hop deliveries from the valley during harvest and brew fresh-hop releases in real time. Fremont in particular has a strong record of involving serious brewing visitors during their fresh-hop brew days. The logistics&#8212;un-kilned cones arriving by refrigerated truck, being weighed into the kettle still warm&#8212;are unlike any other brewing day you will have, and the sensory difference between fresh and kilned hops in the same recipe is the core educational experience of Yakima.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Yakima Valley</div>
+<div class="recipe-title">West Coast IPA &#8212; The Yakima Argument</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>American 2-Row Pale Malt</span><span class="r-qty">5.5 kg</span></div>
+<div class="r-item"><span>Munich Malt 10L</span><span class="r-qty">350 g</span></div>
+<div class="r-item"><span>Carapils / Dextrin</span><span class="r-qty">150 g</span></div></div>
+<div><div class="r-col-title">Hop Schedule</div>
+<div class="r-item"><span>Columbus &#8212; 60 min (bittering only)</span><span class="r-qty">14 g</span></div>
+<div class="r-item"><span>Simcoe &#8212; whirlpool 80&deg;C, 20 min</span><span class="r-qty">35 g</span></div>
+<div class="r-item"><span>Centennial &#8212; whirlpool 80&deg;C, 20 min</span><span class="r-qty">25 g</span></div>
+<div class="r-item"><span>Citra &#8212; dry hop 4 days, 15&deg;C</span><span class="r-qty">40 g</span></div>
+<div class="r-item"><span>Mosaic &#8212; dry hop 4 days, 15&deg;C</span><span class="r-qty">30 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.065</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.012</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">7.0%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">60&ndash;65</span><span class="r-target-lbl">IBU (calc)</span></div><div><span class="r-target-val">5&ndash;7</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; West Coast IPA</strong>Ca 100 ppm &middot; SO&#8324; 200 ppm &middot; Cl 50 ppm. The high sulfate is intentional and non-negotiable for West Coast IPA: it creates the "dry, snappy" finish that distinguishes the style from NEIPA. Add CaSO&#8324; aggressively. The sulfate-chloride ratio of 4:1 emphasizes hop dryness over malt fullness.</div>
+<div class="r-notes">Yeast: US-05 or Wyeast 1056&#8212;completely neutral, let the hops express themselves. Ferment at 18&deg;C. After primary, cold crash to 1&deg;C before dry-hopping under CO&#8322; pressure for 4 days at 15&deg;C. Cold-side oxygen is the enemy: every milli of dissolved O&#8322; introduced post-fermentation oxidizes the fresh tropical character irreversibly. Use closed transfers. The lesson from Yakima: the chemistry is very good. Don't get in its way.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Mid-September for peak harvest and maximum farm access. Operations run 24 hours.</div>
+<div class="sb-item"><strong>Festival Window</strong>First Saturday of October for the Fresh Hop Ale Festival&#8212;the most concentrated single-day education in un-kilned hop aromatics available anywhere.</div>
+<div class="sb-item"><strong>Where to Stay</strong>Yakima offers limited boutique options. Practical base is any downtown Yakima hotel. If atmosphere matters, consider Leavenworth (2 hrs) and drive to the valley.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Yakima</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">40 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">12 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">80 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">25 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">10 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~5&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">Moderately soft volcanic-melt water. American IPA brewers augment aggressively with gypsum (CaSO&#8324;) to push sulfate to 150&ndash;300 ppm, which accentuates the sharp, resinous dryness characteristic of West Coast IPA. The native Yakima water alone would produce a rounder, less-defined beer.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Bale Breaker Field 41 IPA, on-site at Field 41&#8212;the farm-to-glass benchmark</li>
+<li>Any fresh-hop release at Yakima Fresh Hop Ale Festival (early October)</li>
+<li>Fremont Brewing fresh-hop IPA in Seattle, when available in September</li>
+<li>Cloudburst Brewing Single Hop Series&#8212;technically precise, varietal-specific</li>
+<li>Cowiche Creek seasonal fresh-hop releases during harvest window</li>
+</ul></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== TETTNANG ===== -->
+<section class="rg-sec sec-cr" id="tettnang">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 06 of 07</span><h2 class="rg-name">Tettnang</h2><div class="rg-ctry">Baden-W&uuml;rttemberg, Germany</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~1,200</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">400&ndash;550m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Aug 28&ndash;Sep 5</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">47&deg;41'N &middot; 9&deg;35'E &middot; Tettnang, Lake Constance Region</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>Tettnang is a study in how small a region needs to be to produce something genuinely distinctive. Just ~1,200 hectares of active production on rolling glacial moraine terraces in the far southwest of Germany, twenty minutes from the Swiss border and the northern shore of Lake Constance. The lake&#8212;395 meters above sea level and the third-largest freshwater lake in Central Europe&#8212;functions as a massive thermal moderator, absorbing summer heat and releasing it through autumn. This keeps the local climate cooler in summer and warmer in autumn than would otherwise be expected at this latitude, allowing the hop bines to ripen slowly and accumulate essential oils over a longer period than in the Hallertau to the north.</p>
+<p>The Tettnanger landrace is genetically related to the Saaz family&#8212;sharing the high farnesene characteristic (20&ndash;25% of total oil) that gives both varieties their distinctive herbal spice note. But where Saaz is driven by that peppery, woody spice, Tettnanger adds elements of sweet bergamot, dried flower, and light black tea that come specifically from the lake-influenced climate and the glacial moraine soils. Technical purists often cite Tettnanger as the most structurally complex noble hop in existence: all the refinement of Mittelfr&#252;h, all the farnesene-driven spice of Saaz, and something that belongs to neither&#8212;an elegance that resists single-word description.</p>
+<p>The region is also the smallest serious hop-growing area covered in this Atlas. Its boutique scale means the farms are accessible, personal, and often run by the same families for generations. The visit to Tettnang is fundamentally different in character from Yakima or even Hallertau: it is a quiet agricultural idyll, scaled for walking rather than driving.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Tettnanger</div><div class="hop-card-profile">Bergamot, dried flowers, light black tea, white pepper, soft earth&#8212;the most structurally complex noble hop</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">2.5&ndash;5.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">22&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Humulene</span><span class="hc-val">20&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">20&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">20&ndash;25% &#9733;</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.5&ndash;1.0 mL</span></div></div><div class="hop-card-use"><strong>The farnesene (&#9733;) is the key.</strong> At 20&ndash;25%, Tettnanger has among the highest farnesene fractions of any German noble hop&#8212;comparable to Saaz and Styrian Goldings. Like Saaz, this means the most distinctive character expresses at late additions and minimal-heat applications. Use Tettnanger throughout a German Pilsner (first wort through flameout) to layer its complexity. Do not substitute "American Tettnang"&#8212;a different variety sharing only the name.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Hop Terraces and Hopfengut N&#176;20</div><div class="itin-text">Arrive in Tettnang and spend the morning on foot in the compact old town&#8212;medieval castle ruins, market square gasthouses, and the distinctive visual of hop bines strung on low-clearance trellis systems climbing the gentle moraine slopes. The star attraction is <strong>Hopfengut N&#176;20</strong>: a genuinely exceptional integrated estate combining a working hop farm, a thoughtfully curated museum of regional cultivation history, a small-batch craft brewery, and a farm restaurant using estate ingredients. Book a sensory workshop with their master brewer during the early harvest window&#8212;they accommodate serious brewers for technical one-on-one sessions covering hop oil analysis, kettle addition strategy, and the effect of the lake microclimate on annual crop variability. This is the highest-value single venue in the Tettnang region.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">Lake Constance Chemistry</div><div class="itin-text">Spend the morning tracing the lake shoreline by bicycle on the <strong>Bodensee-Radweg</strong> (Lake Constance Cycling Path), which runs directly through and between several hop-growing villages. The view from the elevated moraine slopes toward the lake surface&#8212;the specific light, the atmospheric moisture coming off the water&#8212;makes the thermal-buffer argument for Tettnang's terroir tangible in a way that reading about it does not. In the afternoon, drive 25 minutes to <strong>Ravensburg</strong> for a visit to <strong>Brauerei Max Leibinger</strong>&#8212;a traditional south German regional brewery that has used Tettnanger as its primary hop for generations. Their unpasteurized Kellerbier demonstrates the lake-influenced terroir character in a commercial production context: the bergamot and dried flower notes are present but integrated, not announced.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">Konstanz and the Cross-Border Perspective</div><div class="itin-text">Drive 30 minutes to <strong>Konstanz</strong>&#8212;the beautiful medieval university city on the lake, essentially bisected by the Swiss border&#8212;for the final day's base. Spend the morning at the waterfront market. In the afternoon, cross into Switzerland or Austria for a brief detour to understand the regional context: the same lake, similar soil, similar climate, but no hop cultivation&#8212;a reminder that the specific terroir of Tettnang is specific to Tettnang, not simply "Lake Constance." Return to Tettnang for dinner at <strong>Hopfengut N&#176;20</strong>'s farm restaurant, where the chef's menu uses estate ingredients including fresh hops in sauces and braised meat dishes. The combination of fresh-picked Tettnanger and lake fish from the Bodensee is uniquely local and genuinely excellent.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Farm / Brewery / Restaurant</div><div class="mv-name">Hopfengut N&#176;20, Tettnang</div><div class="mv-desc">Integrated farm, museum, small-batch brewery, and farm restaurant. Sensory workshops bookable with the master brewer. The single most complete Tettnang experience available.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Traditional</div><div class="mv-name">Brauerei Max Leibinger, Ravensburg</div><div class="mv-desc">Traditional south German regional brewery using Tettnanger as primary hop. Unpasteurized Kellerbier demonstrates lake-influenced terroir in production context.</div></div>
+<div class="mv-item"><div class="mv-type">Cycling / Landscape</div><div class="mv-name">Bodensee-Radweg</div><div class="mv-desc">The Lake Constance cycling path runs through hop-growing villages and along the lake. The most atmospheric way to understand the microclimate that produces the Tettnanger landrace.</div></div>
+<div class="mv-item"><div class="mv-type">City / Base</div><div class="mv-name">Konstanz</div><div class="mv-desc">Beautiful medieval university city at the Swiss border. Better accommodation and atmosphere than Tettnang village. 30-min drive to the hop farms.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Hopfengut N&#176;20 Sensory Workshop</div><div class="brew-day-text">The boutique brewery at Hopfengut N&#176;20 allows serious brewers to book private technical sensory sessions directly with their master brewer during the September harvest. These are not public tours&#8212;they are genuine working sessions covering estate lot variability, water chemistry for the house Pilsner recipe, and the effect of early vs. late hop additions on Tettnanger's farnesene-driven character. Contact by email in English or German. This is the highest-value educational experience available in the Tettnang region and one of the more intimate farm-brewery educational opportunities in Germany.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Tettnang</div>
+<div class="recipe-title">S&uuml;ddeutsches Pils &#8212; The Lake-Side Argument</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>Weyermann Pilsner Malt</span><span class="r-qty">5.0 kg</span></div>
+<div class="r-item" style="font-size:.78rem;color:rgba(242,237,215,.38);font-style:italic;margin-top:.4rem"><span>Single infusion, 64&deg;C / 75 min for dry, crisp finish. Sparge 78&deg;C.</span></div></div>
+<div><div class="r-col-title">Hop Schedule &#8212; Tettnanger only</div>
+<div class="r-item"><span>First Wort Hop (pre-boil)</span><span class="r-qty">15 g</span></div>
+<div class="r-item"><span>60 min addition</span><span class="r-qty">15 g</span></div>
+<div class="r-item"><span>30 min addition</span><span class="r-qty">12 g</span></div>
+<div class="r-item"><span>5 min aromatic burst</span><span class="r-qty">30 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.048</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.010</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">5.0%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">32&ndash;36</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">2&ndash;3</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; Lake Constance-Inspired</strong>Very soft alpine water. Start RO. Target: Ca 50 ppm &middot; Mg 8 ppm &middot; SO&#8324; 25 ppm &middot; Cl 30 ppm. Slightly more chloride than the Pilsner profile, which adds a soft fullness that pairs with the delicate bergamot notes. Keep sulfate restrained&#8212;you want the floral character, not hop dryness.</div>
+<div class="r-notes">Yeast: Wyeast 2124 or WLP833 (German Bock / South German). Ferment at 9&deg;C, raise to 13&deg;C for diacetyl rest, lager at 0&deg;C for 4&ndash;6 weeks. The critical moment in this beer is the 5-minute aromatic burst: 30g of Tettnanger added with just 5 minutes of boil time, then immediately whirlpooled for 15 minutes before chilling. This is the bergamot and dried-flower note expressed at maximum intensity.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Late August&#8212;the tightest harvest window of any region in this Atlas. Book Hopfengut N&#176;20 sensory workshop in June.</div>
+<div class="sb-item"><strong>Late Summer Bonus</strong>Lake Constance in late August has exceptional light and warm evenings. The hop harvest coincides with the lake tourism high season&#8212;book accommodation early.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Lake Constance Region</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">55 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">10 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">95 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">28 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">15 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~8&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">Moderately soft alpine water&#8212;between the near-distilled Pilsen profile and the Munich carbonate weight. The low sulfate promotes malt fullness while allowing the delicate Tettnanger floral character to emerge without being amplified into bitterness.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Hopfengut N&#176;20 estate-hopped Pilsner&#8212;the most direct terroir expression available</li>
+<li>Leibinger Kellerbier, unfiltered at the Ravensburg brewery</li>
+<li>Brauhaus Meersburg lake lager, on the Bodensee cliff terrace</li>
+<li>Any Swiss or Austrian lager in Konstanz&#8212;the cross-border comparison is instructive</li>
+</ul></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== NELSON ===== -->
+<section class="rg-sec" id="nelson">
+<div class="rg-tape"><div class="rg-tape-inner">
+<div class="rg-id"><span class="rg-num-lbl">Dossier &middot; 07 of 07</span><h2 class="rg-name">Nelson</h2><div class="rg-ctry">South Island, New Zealand</div></div>
+<div><div class="rg-stats"><div><span class="rg-stat-val">~1,500</span><span class="rg-stat-lbl">Hectares</span></div><div><span class="rg-stat-val">0&ndash;100m</span><span class="rg-stat-lbl">Elevation</span></div><div><span class="rg-stat-val">Mar 1&ndash;12</span><span class="rg-stat-lbl">Harvest Peak</span></div></div><span class="rg-coords">41&deg;16'S &middot; 173&deg;17'E &middot; Upper Moutere / Motueka, Nelson</span></div>
+</div></div>
+<div class="rg-body"><div class="wrap"><div class="rg-grid">
+<div>
+<h3 class="rg-h3">Why It Matters</h3>
+<div class="rg-essay">
+<p>The Nelson region sits at the northern tip of New Zealand's South Island, wrapped in mountains on three sides and open to the Tasman Bay on the fourth. It records more annual sunshine hours than any other part of New Zealand&#8212;consistently over 2,400&#8212;and benefits from pristine river-flat soils deposited by millennia of glacial runoff. It is also completely free from the common hop diseases and pests that bedevil Northern Hemisphere cultivation, which means New Zealand hop plants never undergo the chemical stress treatments that subtly affect oil expression in even the best European and American crops. This absence of disease pressure, combined with the extreme sunshine and deep alluvial soils, creates conditions of unusual purity.</p>
+<p>The result is Nelson Sauvin&#8212;released in 1997 by what is now Plant &amp; Food Research&#8212;arguably the most chemically distinctive hop variety in commercial production. Its defining characteristic is a massive concentration of polyfunctional thiols: specifically 4-mercapto-4-methylpentan-2-one (4MMP) and 3-mercaptohexan-1-ol (3MHA)&#8212;volatile sulfur compounds that, at low concentrations, produce the aroma of white wine grapes, crushed gooseberries, and passion fruit. These are the exact same thiol compounds responsible for the varietal character of Marlborough Sauvignon Blanc&#8212;a fact that is not coincidental, since both the vines and the hop bines grow in similar soils under similar light within an hour's drive of each other.</p>
+<p>This is the final stop on the Grand Tour for a reason: it is the most challenging hop to use well. Nelson Sauvin's intensity is not automatically an asset. At high rates in a malt-heavy beer it can produce a harsh, oily, wine-like quality that obscures rather than elevates. The skill is in restraint&#8212;using the thiol intensity to add dimension to a clean, dry lager or pale ale, not to overwhelm it. Coming to Nelson after six years of studying European and American hops gives you the palate to navigate this.</p>
+</div>
+<h3 class="rg-h3">Signature Hops</h3>
+<div class="hop-cards">
+<div class="hop-card"><div class="hop-card-name">Nelson Sauvin</div><div class="hop-card-profile">White wine grapes, crushed gooseberry, passion fruit, fresh grape skins&#8212;the thiol-dominant variety</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">12.0&ndash;13.0%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">22&ndash;28%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">22&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">4MMP &#9733;</span><span class="hc-val">High</span></div><div class="hc-item"><span class="hc-lbl">3MHA &#9733;</span><span class="hc-val">High</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">1.0&ndash;1.3 mL</span></div></div><div class="hop-card-use"><strong>Thiols (&#9733;) are the defining chemistry.</strong> Unlike most hop aromatics, polyfunctional thiols are not directly present in the hop cone&#8212;they exist as odorless precursors that yeast converts into aromatic forms during fermentation. This means the timing of Nelson Sauvin additions matters differently than for terpene-driven hops: significant early boil additions build bitterness without expressing thiol character. Whirlpool additions (at lower temperatures, 75&ndash;80&deg;C, to avoid volatilizing precursors) and dry-hop are the key windows. Use a yeast with high thiol-releasing activity for maximum expression.</div></div>
+<div class="hop-card"><div class="hop-card-name">Motueka</div><div class="hop-card-profile">Fresh lime zest, mojito mint, soft noble spice background&#8212;a Saaz descendant transformed by NZ terroir</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">6.5&ndash;7.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">28&ndash;33%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">50&ndash;60%</span></div><div class="hc-item"><span class="hc-lbl">Farnesene</span><span class="hc-val">10&ndash;12%</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.7&ndash;1.0 mL</span></div><div class="hc-item"><span class="hc-lbl">Parentage</span><span class="hc-val">Saaz-derived</span></div></div><div class="hop-card-use"><strong>Use in:</strong> NZ Pilsner, session pale ale, wheat beer. The retained farnesene from its Saaz lineage gives Motueka a recognizably noble herbal background beneath the intense fresh lime&#8212;making it uniquely suited as a single hop in a lager where you want the Saaz spice structure with a tropical uplift. Excellent for demonstrating how a landrace expresses differently in a radically different terroir.</div></div>
+<div class="hop-card"><div class="hop-card-name">Riwaka</div><div class="hop-card-profile">Grapefruit pith, passion fruit, pungent tropical dank&#8212;Saaz parentage pushed to maximum myrcene intensity</div><div class="hop-chem"><div class="hc-item"><span class="hc-lbl">Alpha</span><span class="hc-val">4.5&ndash;6.5%</span></div><div class="hc-item"><span class="hc-lbl">Cohumulone</span><span class="hc-val">25&ndash;30%</span></div><div class="hc-item"><span class="hc-lbl">Myrcene</span><span class="hc-val">65&ndash;70% &#9733;</span></div><div class="hc-item"><span class="hc-lbl">Total Oil</span><span class="hc-val">0.8&ndash;1.2 mL</span></div><div class="hc-item"><span class="hc-lbl">Availability</span><span class="hc-val">Limited</span></div><div class="hc-item"><span class="hc-lbl">Parentage</span><span class="hc-val">Saaz-derived</span></div></div><div class="hop-card-use"><strong>The myrcene (&#9733;) is extreme.</strong> At 65&ndash;70%, Riwaka has among the highest myrcene fractions of any variety globally. Like Citra, almost all of its distinctive character is in cold-side applications: dry-hop or extreme late-whirlpool below 75&deg;C. A cult variety, limited availability, but essential to understand as the far end of the Saaz terroir spectrum.</div></div>
+</div>
+<h3 class="rg-h3">Three-Day Field Itinerary</h3>
+<div class="itin-day"><div class="itin-lbl">Day One</div><div class="itin-title">The Upper Moutere Valleys</div><div class="itin-text">Arrive in Nelson and drive immediately to the <strong>Upper Moutere</strong> valley, where the primary hop-growing estates are concentrated. The drive alone is instructive: the soil changes visibly from coastal clay to deep alluvial river silt within a few kilometers, and the bines are taller and denser than you would expect for a region of this elevation. Visit the <strong>Moutere Inn</strong>&#8212;established in 1850 and one of the oldest continuously operating pubs in New Zealand, located in the heart of the original hop-growing community. Drink whatever local tap is current. Then contact <strong>NZ Hops Ltd</strong>, the main growers' cooperative (headquartered in Motueka), to arrange a farm tour or processing-facility visit during the late-February through mid-March harvest window. They work with international educational and commercial visitors. In the evening, return to Nelson and eat at <strong>The Boat Shed Caf&eacute;</strong> on the waterfront&#8212;excellent local produce and seafood, strong NZ wine list for the Sauvignon Blanc comparison you will make tomorrow.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Two</div><div class="itin-title">The Thiol Comparison</div><div class="itin-text">Today is the most important day of the Nelson visit, and it involves leaving the hop fields. Drive southeast over the Wither Hills into <strong>Marlborough</strong>&#8212;approximately one hour&#8212;and spend the afternoon at one of the region's winery tasting rooms. You are not here to drink wine (though you will). You are here to identify the specific aromas of 4MMP and 3MHA in the context of Sauvignon Blanc&#8212;the gooseberry, the tropical fruit, the fresh grape-skin note that your nose already knows from Nelson Sauvin in the glass. Then drive back to Nelson. That evening, at <strong>The Free House</strong> in Nelson city (a converted church, superb NZ craft beer selection), order a Nelson Sauvin beer and a glass of Marlborough Sauv Blanc side by side. Smell one, then the other. The thiol signature is the same. This is terroir functioning as chemistry across entirely different plant species growing in the same geographic neighborhood. It is one of the most remarkable arguments available for why place matters in agricultural production.</div></div>
+<div class="itin-day"><div class="itin-lbl">Day Three</div><div class="itin-title">The Local Brewing Culture</div><div class="itin-text">Spend the morning at <strong>Sprig &amp; Fern Brewery</strong> in Nelson city&#8212;genuinely independent, locally owned, and strongly committed to New Zealand hop varieties. Arrange a visit in advance; their head brewer is typically happy to discuss the local crop's variability with serious visitors. In the afternoon, explore the Motueka sub-region&#8212;slightly inland and warmer than Upper Moutere, producing Riwaka and Waimea varieties in addition to Nelson Sauvin and Motueka. <strong>Important note on biosecurity:</strong> New Zealand's biosecurity regulations strictly prohibit removing any plant material&#8212;including hop cones, bines, or soil samples&#8212;from the country. This is non-negotiable. Leave all samples in-country. The sensory reference you carry out is in your memory.</div></div>
+<h3 class="rg-h3">Must Visit</h3>
+<div class="mv-grid">
+<div class="mv-item"><div class="mv-type">Cooperative / Farm Access</div><div class="mv-name">NZ Hops Ltd, Motueka</div><div class="mv-desc">The main growers' cooperative. Primary contact for farm tours and processing-facility visits during the late-February to mid-March harvest window. Contact in November&ndash;December for the following harvest.</div></div>
+<div class="mv-item"><div class="mv-type">Pub / Historic</div><div class="mv-name">The Moutere Inn, Upper Moutere</div><div class="mv-desc">Established 1850. One of the oldest continuously operating pubs in New Zealand, in the heart of the original hop-growing community. Drink local tap and spend the afternoon on the terrace.</div></div>
+<div class="mv-item"><div class="mv-type">Brewery / Independent</div><div class="mv-name">Sprig &amp; Fern, Nelson City</div><div class="mv-desc">Genuinely independent Nelson brewery with strong commitment to local hop varieties. Head brewer typically available for serious visitor discussions. Arrange visit in advance.</div></div>
+<div class="mv-item"><div class="mv-type">Pub / Beer Selection</div><div class="mv-name">The Free House, Nelson City</div><div class="mv-desc">Converted church; the best NZ craft beer selection in Nelson city. Essential for the Sauvignon Blanc / Nelson Sauvin side-by-side comparison on Day Two.</div></div>
+<div class="mv-item"><div class="mv-type">Restaurant / Waterfront</div><div class="mv-name">The Boat Shed Caf&eacute;, Nelson</div><div class="mv-desc">Excellent local seafood and produce on the waterfront. Good wine list for the Marlborough comparison. The appropriate place to end the Grand Tour's final evening.</div></div>
+<div class="mv-item"><div class="mv-type">Side Trip / Essential</div><div class="mv-name">Marlborough Wine Region</div><div class="mv-desc">One hour east of Nelson. The thiol comparison experience&#8212;Sauvignon Blanc vs. Nelson Sauvin&#8212;is the intellectual highlight of the entire Nelson visit. Not optional.</div></div>
+</div>
+<h3 class="rg-h3">Brew Day Opportunities</h3>
+<div class="brew-day"><div class="brew-day-lbl">Harvest Processing Access via NZ Hops Ltd</div><div class="brew-day-text">Contact <strong>NZ Hops Ltd</strong> in October&ndash;November before your February&ndash;March visit. They work with international buyers, educators, and serious homebrewer groups during the harvest window, and can arrange access to picking, pelletizing runs, and sensory evaluation of fresh estate lots. The opportunity to evaluate raw Nelson Sauvin cones directly off the bine&#8212;before kilning changes the thiol precursor profile&#8212;is the most complete sensory experience available in the region and one that is simply impossible to replicate outside the harvest window.</div></div>
+<div class="recipe"><div style="position:relative;z-index:1">
+<div class="recipe-eyebrow">Brew When You Return &middot; Nelson</div>
+<div class="recipe-title">New Zealand Pilsner &#8212; The Thiol Argument</div>
+<div class="recipe-grid">
+<div><div class="r-col-title">Grain Bill (23L)</div>
+<div class="r-item"><span>German Pilsner Malt (very pale)</span><span class="r-qty">5.0 kg</span></div>
+<div class="r-item"><span>Rice Hulls (clarity / body)</span><span class="r-qty">100 g</span></div>
+<div class="r-item" style="font-size:.78rem;color:rgba(242,237,215,.38);font-style:italic;margin-top:.4rem"><span>Mash 63&deg;C / 75 min for very dry, low-residual fermentable profile.</span></div></div>
+<div><div class="r-col-title">Hop Schedule</div>
+<div class="r-item"><span>Motueka &#8212; 60 min (structure)</span><span class="r-qty">20 g</span></div>
+<div class="r-item"><span>Nelson Sauvin &#8212; whirlpool 78&deg;C, 20 min</span><span class="r-qty">40 g</span></div>
+<div class="r-item"><span>Riwaka &#8212; dry hop 3 days cold</span><span class="r-qty">20 g</span></div></div>
+<div class="r-targets"><div><span class="r-target-val">1.050</span><span class="r-target-lbl">OG</span></div><div><span class="r-target-val">1.010</span><span class="r-target-lbl">FG</span></div><div><span class="r-target-val">5.3%</span><span class="r-target-lbl">ABV</span></div><div><span class="r-target-val">26&ndash;30</span><span class="r-target-lbl">IBU</span></div><div><span class="r-target-val">2</span><span class="r-target-lbl">SRM</span></div></div>
+<div class="r-water"><strong>Water Profile &#8212; NZ Mountain Runoff</strong>Very soft. Start RO. Target: Ca 30 ppm &middot; Mg 5 ppm &middot; SO&#8324; 20 ppm &middot; Cl 30 ppm. The softness allows the thiol character to emerge without harsh interference. Add lactic acid to reach mash pH 5.2.</div>
+<div class="r-notes">Yeast: WLP800 (Czech Pilsner) or a high-thiol-releasing strain such as Lallemand Diamond Lager or Omega Yeast OYL-114 (Cosmic Punch)&#8212;the latter specifically bred for thiol expression and transforms the Nelson Sauvin precursors into fully aromatic form. Ferment at 10&deg;C for 2 weeks. Lager at 0&deg;C for 4 weeks minimum. The whirlpool temperature (78&deg;C) is deliberately lower than standard to preserve thiol precursors&#8212;above 85&deg;C, precursor volatility increases and expression diminishes. This beer should smell exactly like a glass of Marlborough Sauvignon Blanc in the most surprising way. That is the point.</div>
+</div></div></div>
+</div>
+<div>
+<div class="sb-box"><div class="sb-title">Best Time to Visit</div>
+<div class="sb-item"><strong>Primary Window</strong>Late February to mid-March. Northern Hemisphere winter = Southern Hemisphere summer harvest. The valley is at full agricultural intensity.</div>
+<div class="sb-item"><strong>Contact Timeline</strong>Contact NZ Hops Ltd in October&ndash;November for the following February harvest. Do not leave this until January.</div>
+<div class="sb-item"><strong>Biosecurity</strong>No plant material may leave New Zealand. This includes hop cones, bines, leaves, or any other agricultural material. Plan accordingly.</div></div>
+<div class="water-box"><div class="water-title">Water Terroir &#8212; Nelson</div>
+<div class="water-grid">
+<div><span class="water-ion">Calcium</span><span class="water-val">20 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Magnesium</span><span class="water-val">4 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Bicarbonate</span><span class="water-val">25 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Sulfate</span><span class="water-val">8 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Chloride</span><span class="water-val">8 <span class="water-unit">mg/L</span></span></div>
+<div><span class="water-ion">Hardness</span><span class="water-val">~1.5&deg; <span class="water-unit">dH</span></span></div>
+</div>
+<div class="water-note">Exceptionally soft mountain runoff&#8212;among the softest brewing waters of any hop region in this Atlas. This purity allows thiol-forward Nelson varieties to express with maximum clarity. Any mineral content above ~50 ppm calcium begins to interfere with the delicate thiol character.</div></div>
+<div class="sb-box"><div class="sb-title">What to Drink There</div>
+<ul class="drinks-list">
+<li>Sprig &amp; Fern Nelson Sauvin ale, on-site&#8212;maximum terroir proximity</li>
+<li>Moutere Inn local tap, whatever is current&#8212;the historically appropriate vessel</li>
+<li>Any NZ craft brewery Nelson Sauvin single-hop beer at The Free House</li>
+<li>Marlborough Sauvignon Blanc (Dog Point, Cloudy Bay)&#8212;the thiol comparison</li>
+<li>Hop Federation Riwaka Pale Ale when available&#8212;the extreme end of NZ hop expression</li>
+</ul></div>
+</div>
+</div></div></div>
+</section>
+
+<!-- ===== FIELD NOTES ===== -->
+<section class="sec sec-mid" id="fieldnotes">
+<div class="wrap">
+<div class="sec-label">Section VI</div>
+<h2 class="sec-title">The Brewer's Field Notes</h2>
+<p class="sec-sub">Practical intelligence for travelling with intent: what to taste, what to pack, what to read, and what you cannot bring home</p>
+<div class="fn-grid">
+<div class="fn-card">
+<div class="fn-num">01</div>
+<div class="fn-title">How to Taste Hops in the Field</div>
+<div class="fn-text">
+<p>Raw hop-cone evaluation is a skill that requires deliberate practice. The standard technique: take a dried whole cone between both palms, crush firmly, then rub vigorously for 10&ndash;15 seconds until the cone disintegrates and lupulin (the golden glands that contain the oils) coats your palms. Bring both hands immediately to your nose and inhale deeply. The first impression fades within 20 seconds as the volatile compounds disperse.</p>
+<p>What you are evaluating: (1) intensity, (2) character (fruity, floral, herbal, resinous, earthy, catty), (3) cleanliness (harsh, solvent notes indicate poor storage or variety instability), (4) persistence. Take notes in a small journal&#8212;memory cannot hold seven regional profiles across four years without written reference.</p>
+<p>For fresh (un-kilned) cones in the field, the technique is identical but the intensity is typically 30&ndash;50% higher. Fresh hops also carry "green" notes (chlorophyll, raw vegetable) that disappear during kilning. Learning to see through these green notes is the skill that distinguishes harvest visitors from mere tourists.</p>
+</div>
+</div>
+<div class="fn-card">
+<div class="fn-num">02</div>
+<div class="fn-title">What to Pack</div>
+<div class="fn-text">
+<p>A field visit to a hop region is both agricultural and sensory. Pack accordingly:</p>
+<ul>
+<li><strong>Sensory journal:</strong> Dedicated notebook for hop evaluations, water samples, and beer tasting notes. Written in the field, not from memory later.</li>
+<li><strong>Small unmarked glass vessels:</strong> For requesting water samples from local sources. Understanding regional water chemistry in your hands is different from reading it in a table.</li>
+<li><strong>Refractometer:</strong> Compact, useful for measuring grape and wort density if invited to observe a brewing session.</li>
+<li><strong>Camera (not phone):</strong> Soil texture, field layout, kiln architecture, and equipment details photograph better with a dedicated camera in low harvest light.</li>
+<li><strong>Good walking boots:</strong> Farm fields in late August&ndash;September are often damp and uneven. Every region on this list requires actual walking.</li>
+<li><strong>Business cards:</strong> Naming yourself as a homebrewer with serious intent opens more doors than showing up anonymously.</li>
+</ul>
+</div>
+</div>
+<div class="fn-card">
+<div class="fn-num">03</div>
+<div class="fn-title">Transporting Hop Samples: The Legal Reality</div>
+<div class="fn-text">
+<p>Bringing hop material across international borders is significantly more complicated than many brewers assume. The short version: processed hops (kilned pellets or whole dried cones in sealed commercial packaging, with phytosanitary certificate) can generally cross most borders with declaration. Fresh (un-kilned) hops, bines, leaves, or any live plant material cannot, in most cases, legally cross international borders without specific import permits&#8212;and in many cases cannot cross at all.</p>
+<p><strong>New Zealand:</strong> Effectively zero tolerance for any plant material leaving the country. NZ's biosecurity is among the most rigorous in the world. Do not attempt to carry any fresh or dried unprocessed hop material out of NZ.</p>
+<p><strong>EU to UK / US:</strong> Post-Brexit, the UK now applies its own phytosanitary requirements. Plant material requires documentation. Commercial pellets with certificates are manageable; anything else is not worth the risk.</p>
+<p><strong>Practical solution:</strong> Source small quantities of estate pellets commercially from the farms you visit. Many quality Hallertau, Saaz, and NZ operations sell direct to homebrew accounts. The sensory reference lives in your memory; the hops arrive by post.</p>
+</div>
+</div>
+<div class="fn-card">
+<div class="fn-num">04</div>
+<div class="fn-title">The Essential Reading List</div>
+<div class="fn-text">
+<p>Before each regional visit, read the book that most illuminates it. This is a curriculum, not a holiday. The books below are the foundational texts:</p>
+<ul>
+<li><em>For the Love of Hops</em> &#8212; Stan Hieronymus. The comprehensive reference for hop chemistry, history, and terroir. Read before Year One. The chapter on farnesene alone is worth the price.</li>
+<li><em>Brewing Lager Beer</em> &#8212; Gregory Noonan. The technical bible for the German and Czech chapters. Decoction mashing, water chemistry, lager fermentation science.</li>
+<li><em>Farmhouse Ales</em> &#8212; Phil Markowski. The authoritative text on Belgian farmhouse and Saison traditions. Read before Poperinge.</li>
+<li><em>The Brewmaster's Table</em> &#8212; Garrett Oliver. For beer-food pairing context before 't Hommelhof and Na Spilce. Understanding what food does to hop perception.</li>
+<li><em>Oxford Companion to Beer</em> &#8212; Garrett Oliver, ed. The encyclopedic reference for historical context across all seven regions.</li>
+<li><em>The Hop Atlas</em> &#8212; Johann Portner. The original German-language agricultural atlas of global hop cultivation. Difficult to find; essential if you can locate it.</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+<div class="footer-brand">The Hop Atlas</div>
+<div class="footer-sub">A Brewer's Grand Tour Through the Great Hop Regions of the World</div>
+<div class="footer-rule"></div>
+<p class="footer-note">A private field dossier for the serious brewer. Seven regions. Four years. One permanent brewing reference. &mdash; Compiled with agricultural fidelity and editorial intent for a brewer who thinks like a winemaker.</p>
+</footer>
+
+</body>
+</html>
